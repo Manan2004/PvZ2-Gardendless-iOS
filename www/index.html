@@ -26,6 +26,9 @@
       var defaultDPR = isMobile ? (/iPad/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 2 && window.innerWidth >= 1024) ? 0.85 : 1.0) : 1.25;
       window.__MAX_DPR__ = savedDPR ? parseFloat(savedDPR) : defaultDPR;
       console.log('[Perf] Configured max DPR:', window.__MAX_DPR__, '(default was:', defaultDPR, ')');
+      window.__autoCollectEnabled = localStorage.getItem('pvzg_auto_collect') !== 'false';
+      window.__autoFastForwardEnabled = localStorage.getItem('pvzg_auto_fast_forward') !== 'false';
+      console.log('[Settings] Auto-Collect:', window.__autoCollectEnabled, '| Auto-FF:', window.__autoFastForwardEnabled);
     })();
   </script>
 
@@ -121,9 +124,35 @@
   <div id="perf-gear-btn" title="Graphics & Performance" style="position:fixed;bottom:12px;left:12px;width:34px;height:34px;border-radius:17px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:99999;cursor:pointer;opacity:0.35;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;transition:opacity 0.2s,transform 0.2s;">⚙️</div>
 
   <div id="perf-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.72);z-index:100000;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;">
-    <div style="background:#1b1c23;border:2px solid #3d3e52;border-radius:16px;padding:20px 22px;width:88%;max-width:370px;box-shadow:0 12px 32px rgba(0,0,0,0.85);color:#eee;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;">
-      <div style="font-size:16px;font-weight:bold;margin-bottom:4px;color:#fff;">⚡ Graphics & Performance</div>
-      <div style="font-size:11px;color:#9aa;margin-bottom:12px;">Select resolution mode for your device. Applies dynamically.</div>
+    <div style="background:#1b1c23;border:2px solid #3d3e52;border-radius:16px;padding:18px 20px;width:90%;max-width:380px;max-height:88vh;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.85);color:#eee;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;-webkit-overflow-scrolling:touch;">
+      <div style="font-size:16px;font-weight:bold;margin-bottom:3px;color:#fff;">⚙️ iOS Settings & Performance</div>
+      <div style="font-size:11px;color:#9aa;margin-bottom:12px;">Customize gameplay helpers and graphics scaling.</div>
+
+      <!-- Gameplay Helpers Section -->
+      <div style="margin-bottom:12px;padding:10px 12px;background:#252733;border-radius:10px;border:1px solid #3b3e4d;text-align:left;">
+        <div style="font-size:11px;font-weight:bold;color:#4ef;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🎮 Gameplay Helpers</div>
+
+        <!-- Auto-Collect Toggle -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0 8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="padding-right:10px;">
+            <div style="font-size:13px;font-weight:bold;color:#fff;">🌻 Auto-Collect Items</div>
+            <div style="font-size:10px;color:#889;">Collects sun, coins, gems, plant food automatically</div>
+          </div>
+          <button id="toggle-auto-collect" style="padding:6px 14px;border-radius:14px;font-size:11px;font-weight:bold;cursor:pointer;border:none;background:#06d6a0;color:#0b291e;min-width:54px;-webkit-tap-highlight-color:transparent;transition:all 0.2s;">ON</button>
+        </div>
+
+        <!-- Auto Fast-Forward Toggle -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 4px 0;">
+          <div style="padding-right:10px;">
+            <div style="font-size:13px;font-weight:bold;color:#fff;">⏩ Auto Fast-Forward</div>
+            <div style="font-size:10px;color:#889;">Every new level starts in 2x speed automatically</div>
+          </div>
+          <button id="toggle-auto-ff" style="padding:6px 14px;border-radius:14px;font-size:11px;font-weight:bold;cursor:pointer;border:none;background:#06d6a0;color:#0b291e;min-width:54px;-webkit-tap-highlight-color:transparent;transition:all 0.2s;">ON</button>
+        </div>
+      </div>
+
+      <!-- Resolution Section -->
+      <div style="font-size:11px;font-weight:bold;color:#9aa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;text-align:left;">⚡ Resolution Scaling</div>
 
       <div id="perf-opt-0" class="perf-opt-item" data-dpr="0.75" style="margin-bottom:7px;padding:9px 12px;border-radius:10px;background:#252733;border:2px solid transparent;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;">
         <div>
@@ -176,6 +205,8 @@
       var optItems = document.querySelectorAll('.perf-opt-item');
       var fps60Btn = document.getElementById('perf-fps-60');
       var fps30Btn = document.getElementById('perf-fps-30');
+      var toggleCollectBtn = document.getElementById('toggle-auto-collect');
+      var toggleFFBtn = document.getElementById('toggle-auto-ff');
 
       function updateActiveUI() {
         var cur = window.__MAX_DPR__ || 1.0;
@@ -204,6 +235,23 @@
           fps30Btn.style.background = '#222';
           fps30Btn.style.color = '#888';
         }
+
+        // Gameplay Toggles UI
+        var isCollectOn = window.__autoCollectEnabled !== false;
+        if (toggleCollectBtn) {
+          toggleCollectBtn.textContent = isCollectOn ? 'ON' : 'OFF';
+          toggleCollectBtn.style.background = isCollectOn ? '#06d6a0' : '#374151';
+          toggleCollectBtn.style.color = isCollectOn ? '#0b291e' : '#9ca3af';
+          toggleCollectBtn.style.border = isCollectOn ? 'none' : '1px solid #4b5563';
+        }
+
+        var isFFOn = window.__autoFastForwardEnabled !== false;
+        if (toggleFFBtn) {
+          toggleFFBtn.textContent = isFFOn ? 'ON' : 'OFF';
+          toggleFFBtn.style.background = isFFOn ? '#06d6a0' : '#374151';
+          toggleFFBtn.style.color = isFFOn ? '#0b291e' : '#9ca3af';
+          toggleFFBtn.style.border = isFFOn ? 'none' : '1px solid #4b5563';
+        }
       }
 
       function openModal() {
@@ -224,6 +272,28 @@
         }
       }
       window.__togglePerfModal = toggleModal;
+
+      if (toggleCollectBtn) {
+        toggleCollectBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var newState = !(window.__autoCollectEnabled !== false);
+          window.__autoCollectEnabled = newState;
+          localStorage.setItem('pvzg_auto_collect', newState ? 'true' : 'false');
+          updateActiveUI();
+          console.log('[Settings] Auto-Collect set to:', newState);
+        });
+      }
+
+      if (toggleFFBtn) {
+        toggleFFBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var newState = !(window.__autoFastForwardEnabled !== false);
+          window.__autoFastForwardEnabled = newState;
+          localStorage.setItem('pvzg_auto_fast_forward', newState ? 'true' : 'false');
+          updateActiveUI();
+          console.log('[Settings] Auto Fast-Forward set to:', newState);
+        });
+      }
 
       if (gearBtn) {
         gearBtn.addEventListener('click', function (e) {

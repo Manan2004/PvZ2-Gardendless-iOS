@@ -36,15 +36,13 @@ You do **not** need a Mac or Xcode to play! Download the pre-built `.ipa` binary
 ## ✨ Features & iOS Optimizations
 
 ### 🚀 Gameplay & Touch Enhancements
-- **Universal Auto-Collection:**
-  - Sun (from sky, Sunflowers, Twin Sunflowers, Sun-shrooms, and zombies) is **automatically collected** as soon as it drops.
-  - Silver & gold coins, gems, minigame tickets, sprouts, and plant food (when slots are open) are automatically collected.
-  - *Safety:* Far Future sun bombs remain protected and will not auto-explode.
+- **Customizable Gameplay Helpers (In-Game Toggle):**
+  - Tap the **⚙️ Gear Icon** (bottom-left) or perform a **3-Finger Tap** anywhere at any time to open the **iOS Settings & Performance** menu.
+  - **Auto-Collect All Items:** Toggle ON/OFF on demand (defaults to ON). Gathers sun, coins, gems, plant food (when slots are open), sprouts, and tickets automatically.
+  - **Auto Fast-Forward on Level Start:** Toggle ON/OFF on demand (defaults to ON). Starts every round in 2x speed automatically.
+  - Settings are saved persistently in `localStorage` across app restarts.
 - **HUD "Collect All" Tap (Simulated PC 'A' Key):**
-  - Tapping the Sun Counter HUD at the top-left triggers a full lawn sweep to instantly collect all droppings.
-- **Auto Fast-Forward on Level Start:**
-  - Every level automatically starts in **Fast-Forward (2x speed)** mode.
-  - Tap the fast-forward button at any time to toggle back to normal 1x speed on demand.
+  - Tapping the Sun Counter HUD at the top-left triggers a full lawn sweep to instantly collect all droppings (works even if Auto-Collect is toggled off).
 - **Touchscreen Controls & Layout Fixed:**
   - Patched Cocos camera coordinate projection preventing `NaN` coordinate bugs on iOS touch dragging.
   - Ergonomically spaced the fast-forward and shovel buttons to completely prevent accidental shovel presses on iPhones and iPads.
