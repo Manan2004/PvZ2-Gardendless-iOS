@@ -1,110 +1,70 @@
 # Plants vs. Zombies 2: Gardendless (iOS Port)
-### 植保2: 花园无尽 — Native iOS & iPadOS Port (v0.16.1)
 
-A native iOS and iPadOS port of the popular fan-made PC game **Plants vs. Zombies 2: Gardendless (植物大战僵尸2: 花园无尽)**, built with Capacitor and Cocos Creator.
+An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendless** (v0.16.1), packaged using Capacitor and Cocos Creator.
 
-[![Release](https://img.shields.io/github/v/release/Manan2004/PvZ2-Gardendless-iOS?color=green&label=Download%20IPA)](https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases)
-[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20iPadOS-blue)](https://github.com/Manan2004/PvZ2-Gardendless-iOS)
-[![Architecture](https://img.shields.io/badge/Arch-arm64-orange)](https://github.com/Manan2004/PvZ2-Gardendless-iOS)
-[![Engine](https://img.shields.io/badge/Engine-Cocos%20Creator%203.x-lightgrey)](https://github.com/Manan2004/PvZ2-Gardendless-iOS)
+## Download & Installation
 
----
+Pre-built IPA files are available on the [Releases](https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases) page.
 
-## 📱 How to Install & Play
+You can install the IPA using any standard sideloading tool:
+- **TrollStore** (recommended if your iOS version supports it): Open `PvZ2_Gardendless.ipa` directly in TrollStore and install.
+- **AltStore / SideStore**: Add the downloaded IPA through the **+** button in the My Apps tab.
+- **Sideloadly**: Connect your device to your computer, drag the IPA into Sideloadly, and start installation.
 
-You do **not** need a Mac or Xcode to play! Download the pre-built `.ipa` binary from the [**Releases Tab**](https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases).
+## iOS Features & Changes
 
-### Installation Methods
+This port includes several touch-specific quality-of-life adjustments over the original PC version:
 
-#### Option A: TrollStore (Recommended — Permanent, No 7-day Revoke)
-1. Download `PvZ2_Gardendless.ipa` on your device.
-2. Open the file in **TrollStore** and tap **Install**.
-3. Launch and enjoy!
+- **In-Game Settings Menu**: Tap the gear icon in the bottom-left corner (or 3-finger tap anywhere) to open the settings menu. From here you can toggle:
+  - **Auto-Collect**: Automatically collects dropped sun, coins, gems, sprouts, tickets, and plant food (when slots are open). Default is ON.
+  - **Auto Fast-Forward**: Automatically starts each level at 2x speed. Default is ON.
+  - **Resolution & FPS**: Switch between 30 FPS and 60 FPS, or adjust rendering scale for older devices.
+- **Tap Sun Bank to Collect All**: Tapping the sun counter at the top-left triggers a full-screen sweep to collect all items (equivalent to pressing the 'A' key on PC). This works even if Auto-Collect is turned off.
+- **Touch Controls & Layout**:
+  - Fixed touch dragging coordinate bugs on WebKit.
+  - Spaced out the fast-forward and shovel buttons so they don't accidentally overlap on smaller screens.
+- **Save Import & Export**:
+  - Save files are stored directly in the app's Documents folder and can be accessed in the native iOS **Files** app (`On My iPad / iPhone -> PvZ2 Gardendless`).
+  - Tapping Export Save in the settings menu opens the native iOS Share Sheet (AirDrop, Save to Files, etc.) with a clipboard copy option.
+  - Import works through the standard iOS document picker.
+- **Performance**: Paced frame rates for smoother gameplay on older devices (like the 2018 iPad Pro) while supporting up to 120Hz on ProMotion screens.
 
-#### Option B: AltStore / SideStore (Mac & PC)
-1. Download `PvZ2_Gardendless.ipa`.
-2. Open **AltStore** or **SideStore** on your device.
-3. Go to **My Apps** &rarr; tap the **+** button in the top left &rarr; select `PvZ2_Gardendless.ipa`.
-
-#### Option C: Sideloadly (Windows & macOS)
-1. Connect your iPhone or iPad to your computer via USB.
-2. Open **Sideloadly**, drag and drop `PvZ2_Gardendless.ipa` into the app.
-3. Enter your Apple ID and click **Start** to install.
-
----
-
-## ✨ Features & iOS Optimizations
-
-### 🚀 Gameplay & Touch Enhancements
-- **Customizable Gameplay Helpers (In-Game Toggle):**
-  - Tap the **⚙️ Gear Icon** (bottom-left) or perform a **3-Finger Tap** anywhere at any time to open the **iOS Settings & Performance** menu.
-  - **Auto-Collect All Items:** Toggle ON/OFF on demand (defaults to ON). Gathers sun, coins, gems, plant food (when slots are open), sprouts, and tickets automatically.
-  - **Auto Fast-Forward on Level Start:** Toggle ON/OFF on demand (defaults to ON). Starts every round in 2x speed automatically.
-  - Settings are saved persistently in `localStorage` across app restarts.
-- **HUD "Collect All" Tap (Simulated PC 'A' Key):**
-  - Tapping the Sun Counter HUD at the top-left triggers a full lawn sweep to instantly collect all droppings (works even if Auto-Collect is toggled off).
-- **Touchscreen Controls & Layout Fixed:**
-  - Patched Cocos camera coordinate projection preventing `NaN` coordinate bugs on iOS touch dragging.
-  - Ergonomically spaced the fast-forward and shovel buttons to completely prevent accidental shovel presses on iPhones and iPads.
-
-### 💾 Native iOS Save File Management
-- **iOS Files App Integration:**
-  - Enabled `UIFileSharingEnabled` and `LSSupportsOpeningDocumentsInPlace`.
-  - Your save files appear directly in the iOS **Files** app under `On My iPad` / `On My iPhone` &rarr; `PvZ2 Gardendless`.
-- **Native iOS Share Sheet & Clipboard Fallback:**
-  - Tapping **Export Save** opens the native iOS Share Sheet to AirDrop, save to iCloud Drive, or message your save file.
-  - Also displays an in-game modal with an instant **Copy JSON to Clipboard** button.
-  - Import works seamlessly via the native iOS Document Picker.
-
-### ⚡ Performance & Battery Optimization
-- **Low-End & iPad Pro Performance:**
-  - Added dynamic multi-tier frame rate pacing (`60 FPS` baseline on A10X/A12/A13 chips like iPad Pro 2018; `120 FPS` ProMotion support on M-series chips).
-  - WebKit compositing optimizations with zero memory-leak WebAudio node recycling.
-  - In-game Quality / FPS selector accessible via the pause menu.
-
----
-
-## 🛠️ Building from Source
-
-If you want to customize or build the project yourself:
+## Building from Source
 
 ### Prerequisites
-- macOS with **Xcode 15+** installed
-- **Node.js 18+** and **npm**
-- CocoaPods / Swift Package Manager (handled automatically by Capacitor)
+- macOS with Xcode 15 or later
+- Node.js 18+ and npm
 
-### Steps
+### Build Instructions
 
-1. **Clone the repository:**
+1. Clone the repo:
    ```bash
    git clone https://github.com/Manan2004/PvZ2-Gardendless-iOS.git
    cd PvZ2-Gardendless-iOS
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. **Sync web assets to the iOS project:**
+3. Sync web assets to the iOS project:
    ```bash
    npx cap sync ios
    ```
 
-4. **Build & Run via Xcode:**
+4. Build or run the Xcode project:
    ```bash
    npx cap open ios
    ```
-   Or build from command line:
+   Or build from the terminal:
    ```bash
    cd ios/App
    xcodebuild -scheme App -configuration Release -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
    ```
 
----
+## Credits & Disclaimer
 
-## 📜 Disclaimer & Credits
-
-- **Original Fangame Creator:** 莱池_余垛 (Lai Chi / Yu Duo). All original game assets, art, design, and audio belong to their respective creators.
-- **Plants vs. Zombies** is a registered trademark of **PopCap Games** and **Electronic Arts (EA)**.
-- This project is a non-commercial, open-source fan port created strictly for preservation, personal use, and educational purposes.
+- Original fangame created by Lai Chi / Yu Duo.
+- Plants vs. Zombies is a trademark of PopCap Games and Electronic Arts.
+- This is a non-commercial fan port made for personal and educational use.
