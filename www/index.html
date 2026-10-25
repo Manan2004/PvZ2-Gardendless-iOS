@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <base href="./" />
+  <script>
+    (function () {
+      var base = document.querySelector('base');
+      if (!base) {
+        base = document.createElement('base');
+        document.head.insertBefore(base, document.head.firstChild);
+      }
+      var origin = location.origin || (location.protocol + '//' + (location.host || 'localhost'));
+      var path = location.pathname || '/';
+      if (!path.endsWith('/')) {
+        path = path.slice(0, path.lastIndexOf('/') + 1) || '/';
+      }
+      base.href = origin + path;
+      console.log('[BaseURI] Initialized base href:', base.href);
+
+      // Performance Optimization for Low-End & Mobile Devices:
+      // On iPads, 0.85x DPR matches native 1024x640 design assets and reduces fragment fillrate by 35% on older GPUs (A10-A12).
+      var savedDPR = localStorage.getItem('pvzg_perf_dpr');
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+      var defaultDPR = isMobile ? (/iPad/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 2 && window.innerWidth >= 1024) ? 0.85 : 1.0) : 1.25;
+      window.__MAX_DPR__ = savedDPR ? parseFloat(savedDPR) : defaultDPR;
+      console.log('[Perf] Configured max DPR:', window.__MAX_DPR__, '(default was:', defaultDPR, ')');
+    })();
+  </script>
+
+  <title>PvZ2 Gardendless Online | 0.16.1</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+    content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true,viewport-fit=cover" />
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="360-fullscreen" content="true" />
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <script>
+    (function () {
+      const isGitHubPages = window.location.hostname === 'play.pvzge.com';
+
+      if (isGitHubPages) {
+        // 加载 Google Analytics
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-FNC28KV0ZR';
+        document.head.appendChild(gtagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-FNC28KV0ZR');
+
+        const adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2336226859954206';
+        adsenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsenseScript);
+
+        const fundingScript = document.createElement('script');
+        fundingScript.async = true;
+        fundingScript.src = 'https://fundingchoicesmessages.google.com/i/pub-2336226859954206?ers=1';
+        document.head.appendChild(fundingScript);
+
+        (function () {
+          function signalGooglefcPresent() {
+            if (!window.frames['googlefcPresent']) {
+              if (document.body) {
+                const iframe = document.createElement('iframe');
+                iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;';
+                iframe.style.display = 'none';
+                iframe.name = 'googlefcPresent';
+                document.body.appendChild(iframe);
+              } else {
+                setTimeout(signalGooglefcPresent, 0);
+              }
+            }
+          }
+          signalGooglefcPresent();
+        })();
+      }
+    })();
+  </script>
+
+</head>
+
+<body>
+  <div id="GameDiv">
+    <div id="Cocos3dGameContainer">
+      <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
+    </div>
+  </div>
+
+  <!-- Quality & Performance Mode Modal & Discreet Gear Button -->
+  <div id="perf-gear-btn" title="Graphics & Performance" style="position:fixed;bottom:12px;left:12px;width:34px;height:34px;border-radius:17px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:99999;cursor:pointer;opacity:0.35;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;transition:opacity 0.2s,transform 0.2s;">⚙️</div>
+
+  <div id="perf-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.72);z-index:100000;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;">
+    <div style="background:#1b1c23;border:2px solid #3d3e52;border-radius:16px;padding:20px 22px;width:88%;max-width:370px;box-shadow:0 12px 32px rgba(0,0,0,0.85);color:#eee;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;margin-bottom:4px;color:#fff;">⚡ Graphics & Performance</div>
+      <div style="font-size:11px;color:#9aa;margin-bottom:12px;">Select resolution mode for your device. Applies dynamically.</div>
+
+      <div id="perf-opt-0" class="perf-opt-item" data-dpr="0.75" style="margin-bottom:7px;padding:9px 12px;border-radius:10px;background:#252733;border:2px solid transparent;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:bold;font-size:13px;color:#00f2fe;">⚡ Ultra Performance (0.75x)</div>
+          <div style="font-size:10px;color:#889;">Fastest, zero lag. Best for 2018 iPad Pro & older chips.</div>
+        </div>
+        <div class="perf-check" style="font-size:16px;color:#00f2fe;display:none;">✓</div>
+      </div>
+
+      <div id="perf-opt-1" class="perf-opt-item" data-dpr="0.85" style="margin-bottom:7px;padding:9px 12px;border-radius:10px;background:#252733;border:2px solid transparent;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:bold;font-size:13px;color:#4ef;">🏃 Smooth Performance (0.85x)</div>
+          <div style="font-size:10px;color:#889;">Native asset match on iPad Pro, great battery.</div>
+        </div>
+        <div class="perf-check" style="font-size:16px;color:#4ef;display:none;">✓</div>
+      </div>
+
+      <div id="perf-opt-2" class="perf-opt-item" data-dpr="1.0" style="margin-bottom:7px;padding:9px 12px;border-radius:10px;background:#252733;border:2px solid transparent;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:bold;font-size:13px;color:#ffd166;">⚖️ Balanced Standard (1.0x)</div>
+          <div style="font-size:10px;color:#889;">Standard 1:1 scaling for modern iPads & iPhones.</div>
+        </div>
+        <div class="perf-check" style="font-size:16px;color:#ffd166;display:none;">✓</div>
+      </div>
+
+      <div id="perf-opt-3" class="perf-opt-item" data-dpr="1.5" style="margin-bottom:10px;padding:9px 12px;border-radius:10px;background:#252733;border:2px solid transparent;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:bold;font-size:13px;color:#06d6a0;">💎 High Resolution (1.5x)</div>
+          <div style="font-size:10px;color:#889;">Retina sharpness for M-series iPads (M1/M2/M4).</div>
+        </div>
+        <div class="perf-check" style="font-size:16px;color:#06d6a0;display:none;">✓</div>
+      </div>
+
+      <div style="margin-bottom:12px;padding:7px;background:#15161c;border-radius:8px;display:flex;align-items:center;justify-content:space-around;">
+        <span style="font-size:11px;color:#aaa;">FPS Limit:</span>
+        <button id="perf-fps-60" style="padding:4px 14px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #4ef;background:#2d3345;color:#4ef;-webkit-tap-highlight-color:transparent;">60 FPS</button>
+        <button id="perf-fps-30" style="padding:4px 14px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #555;background:#222;color:#888;-webkit-tap-highlight-color:transparent;">30 FPS (Cool)</button>
+      </div>
+
+      <button id="perf-modal-close" style="background:#3b3e4d;color:#fff;border:none;padding:8px 26px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var gearBtn = document.getElementById('perf-gear-btn');
+      var modal = document.getElementById('perf-modal');
+      var closeBtn = document.getElementById('perf-modal-close');
+      var optItems = document.querySelectorAll('.perf-opt-item');
+      var fps60Btn = document.getElementById('perf-fps-60');
+      var fps30Btn = document.getElementById('perf-fps-30');
+
+      function updateActiveUI() {
+        var cur = window.__MAX_DPR__ || 1.0;
+        optItems.forEach(function (el) {
+          var dpr = parseFloat(el.getAttribute('data-dpr'));
+          var isActive = Math.abs(dpr - cur) < 0.05;
+          el.style.borderColor = isActive ? '#4ef' : 'transparent';
+          el.style.background = isActive ? '#2d3345' : '#252733';
+          var chk = el.querySelector('.perf-check');
+          if (chk) chk.style.display = isActive ? 'block' : 'none';
+        });
+
+        var curFps = localStorage.getItem('pvzg_perf_fps') || '60';
+        if (curFps === '30') {
+          fps30Btn.style.border = '1px solid #00f2fe';
+          fps30Btn.style.background = '#1e3340';
+          fps30Btn.style.color = '#00f2fe';
+          fps60Btn.style.border = '1px solid #555';
+          fps60Btn.style.background = '#222';
+          fps60Btn.style.color = '#888';
+        } else {
+          fps60Btn.style.border = '1px solid #4ef';
+          fps60Btn.style.background = '#2d3345';
+          fps60Btn.style.color = '#4ef';
+          fps30Btn.style.border = '1px solid #555';
+          fps30Btn.style.background = '#222';
+          fps30Btn.style.color = '#888';
+        }
+      }
+
+      function openModal() {
+        updateActiveUI();
+        if (modal) modal.style.display = 'flex';
+      }
+
+      function closeModal() {
+        if (modal) modal.style.display = 'none';
+      }
+
+      function toggleModal() {
+        if (!modal) return;
+        if (modal.style.display === 'flex') {
+          closeModal();
+        } else {
+          openModal();
+        }
+      }
+      window.__togglePerfModal = toggleModal;
+
+      if (gearBtn) {
+        gearBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          toggleModal();
+        });
+        gearBtn.addEventListener('touchstart', function (e) {
+          e.stopPropagation();
+          gearBtn.style.opacity = '0.9';
+        }, { passive: true });
+        gearBtn.addEventListener('touchend', function (e) {
+          e.stopPropagation();
+          gearBtn.style.opacity = '0.35';
+          toggleModal();
+        }, { passive: true });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          closeModal();
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+      }
+
+      optItems.forEach(function (el) {
+        function chooseMode(e) {
+          e.stopPropagation();
+          var dpr = parseFloat(el.getAttribute('data-dpr'));
+          window.__MAX_DPR__ = dpr;
+          localStorage.setItem('pvzg_perf_dpr', dpr.toString());
+          updateActiveUI();
+          console.log('[Perf] Quality mode updated to:', dpr);
+
+          if (window.fitGameViewport) window.fitGameViewport();
+          window.dispatchEvent(new Event('resize'));
+          setTimeout(closeModal, 250);
+        }
+        el.addEventListener('click', chooseMode);
+      });
+
+      function applyFPS(fps) {
+        localStorage.setItem('pvzg_perf_fps', fps.toString());
+        updateActiveUI();
+        if (window.cc && window.cc.game) {
+          window.cc.game.setFrameRate(fps);
+          console.log('[Perf] Engine target frame rate set to:', fps);
+        }
+      }
+
+      if (fps60Btn) fps60Btn.addEventListener('click', function(e) { e.stopPropagation(); applyFPS(60); });
+      if (fps30Btn) fps30Btn.addEventListener('click', function(e) { e.stopPropagation(); applyFPS(30); });
+    })();
+  </script>
+
+  <!-- Save File Export Modal (iOS WKWebView Native Bridge) -->
+  <div id="export-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:100001;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;">
+    <div style="background:#1b1c23;border:2px solid #3d3e52;border-radius:16px;padding:22px 24px;width:88%;max-width:370px;box-shadow:0 12px 36px rgba(0,0,0,0.9);color:#eee;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;">
+      <div style="font-size:26px;margin-bottom:4px;">💾</div>
+      <div style="font-size:16px;font-weight:bold;margin-bottom:4px;color:#fff;">Save File Exported!</div>
+      <div id="export-modal-filename" style="font-size:12px;font-family:monospace;color:#4ef;margin-bottom:12px;word-break:break-all;">Player_backup.json</div>
+
+      <div id="export-modal-status" style="background:#14231b;border:1px solid #1f653f;color:#6ee7b7;padding:8px 12px;border-radius:8px;font-size:11px;margin-bottom:14px;line-height:1.4;">
+        ✓ Saved to device storage!<br><span style="color:#a7f3d0;font-size:10px;">Find it in iOS <b>Files</b> app under: <i>On My iPad/iPhone → PvZ2 Gardendless</i></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+        <button id="export-modal-share" style="background:#2563eb;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <span>📤</span> <span>Share / Save to Files...</span>
+        </button>
+        <button id="export-modal-copy" style="background:#374151;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <span>📋</span> <span id="export-copy-label">Copy JSON to Clipboard</span>
+        </button>
+      </div>
+
+      <button id="export-modal-close" style="background:#252733;color:#aaa;border:1px solid #444;padding:8px 26px;border-radius:8px;font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var exportModal = document.getElementById('export-modal');
+      var modalFilename = document.getElementById('export-modal-filename');
+      var modalStatus = document.getElementById('export-modal-status');
+      var shareBtn = document.getElementById('export-modal-share');
+      var copyBtn = document.getElementById('export-modal-copy');
+      var copyLabel = document.getElementById('export-copy-label');
+      var closeBtn = document.getElementById('export-modal-close');
+
+      var currentExportData = '';
+      var currentExportName = '';
+      var currentFileUri = null;
+
+      function closeExportModal() {
+        if (exportModal) exportModal.style.display = 'none';
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', closeExportModal);
+      if (exportModal) {
+        exportModal.addEventListener('click', function (e) {
+          if (e.target === exportModal) closeExportModal();
+        });
+      }
+
+      async function triggerShare() {
+        if (currentFileUri && window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Share) {
+          try {
+            await window.Capacitor.Plugins.Share.share({
+              title: currentExportName,
+              url: currentFileUri,
+              dialogTitle: 'Export Save File'
+            });
+            return;
+          } catch (_) {}
+        }
+        if (navigator.share) {
+          try {
+            var blob = new Blob([currentExportData], { type: 'application/json' });
+            var file = new File([blob], currentExportName, { type: 'application/json' });
+            if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                files: [file],
+                title: currentExportName
+              });
+              return;
+            }
+          } catch (_) {}
+        }
+      }
+
+      if (shareBtn) shareBtn.addEventListener('click', triggerShare);
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(currentExportData).then(function () {
+              if (copyLabel) copyLabel.textContent = '✓ Copied to Clipboard!';
+              setTimeout(function () {
+                if (copyLabel) copyLabel.textContent = 'Copy JSON to Clipboard';
+              }, 2000);
+            }).catch(function () {
+              fallbackCopyText(currentExportData);
+            });
+          } else {
+            fallbackCopyText(currentExportData);
+          }
+        });
+      }
+
+      function fallbackCopyText(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          if (copyLabel) copyLabel.textContent = '✓ Copied to Clipboard!';
+          setTimeout(function () {
+            if (copyLabel) copyLabel.textContent = 'Copy JSON to Clipboard';
+          }, 2000);
+        } catch (_) {}
+        document.body.removeChild(ta);
+      }
+
+      window.__exportFile = async function (jsonStr, fileName) {
+        var fullFileName = fileName.endsWith('.json') ? fileName : (fileName + '.json');
+        currentExportData = jsonStr;
+        currentExportName = fullFileName;
+        currentFileUri = null;
+
+        var savedToFs = false;
+
+        // 1. Write file to iOS Documents folder via Capacitor Filesystem
+        try {
+          if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
+            var fs = window.Capacitor.Plugins.Filesystem;
+            await fs.writeFile({
+              path: fullFileName,
+              data: jsonStr,
+              directory: 'DOCUMENTS',
+              encoding: 'utf8'
+            });
+            savedToFs = true;
+            console.log('[Export] Successfully written to Documents/' + fullFileName);
+
+            try {
+              var uriRes = await fs.getUri({
+                path: fullFileName,
+                directory: 'DOCUMENTS'
+              });
+              currentFileUri = uriRes && uriRes.uri;
+            } catch (_) {}
+          }
+        } catch (fsErr) {
+          console.warn('[Export] Filesystem error:', fsErr);
+        }
+
+        // 2. Open native iOS Share Sheet so user can immediately Save to Files, AirDrop, etc.
+        var autoShared = false;
+        try {
+          if (currentFileUri && window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Share) {
+            await window.Capacitor.Plugins.Share.share({
+              title: fullFileName,
+              url: currentFileUri,
+              dialogTitle: 'Export Save File'
+            });
+            autoShared = true;
+          }
+        } catch (_) {}
+
+        if (!autoShared && navigator.share) {
+          try {
+            var blob = new Blob([jsonStr], { type: 'application/json' });
+            var file = new File([blob], fullFileName, { type: 'application/json' });
+            if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                files: [file],
+                title: fullFileName
+              });
+              autoShared = true;
+            }
+          } catch (_) {}
+        }
+
+        // 3. Display the confirmation modal
+        if (modalFilename) modalFilename.textContent = fullFileName;
+        if (modalStatus) {
+          if (savedToFs) {
+            modalStatus.innerHTML = '✓ Saved to device storage!<br><span style="color:#a7f3d0;font-size:10px;">Find it in iOS <b>Files</b> app under: <i>On My iPad/iPhone → PvZ2 Gardendless</i></span>';
+            modalStatus.style.borderColor = '#1f653f';
+            modalStatus.style.background = '#14231b';
+            modalStatus.style.color = '#6ee7b7';
+          } else {
+            modalStatus.innerHTML = 'Save file ready!<br><span style="font-size:10px;">Use buttons below to share or copy JSON.</span>';
+          }
+        }
+        if (exportModal) exportModal.style.display = 'flex';
+      };
+    })();
+  </script>
+
+  <script>
+    (function () {
+      'use strict';
+      function fitGameViewport() {
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || 1024;
+        var screenHeight = window.innerHeight || document.documentElement.clientHeight || 768;
+        var targetWidth = screenWidth;
+        var targetHeight = screenHeight;
+
+        // Ratio limits: min 16:10 (1.60), max 17:9 (1.888)
+        if (screenWidth * 90 > screenHeight * 171) {
+          // Screen too wide (> 17:9), fix height, clamp width
+          targetWidth = Math.floor(screenHeight * 171 / 90);
+        } else if (screenWidth * 100 < screenHeight * 160) {
+          // Screen too tall (< 16:10, e.g. 4:3 iPad), fix width, clamp height
+          targetHeight = Math.floor(screenWidth * 100 / 160);
+        } else {
+          // Aspect ratio between 16:10 and 17:9, fill screen
+          targetWidth = screenWidth;
+          targetHeight = screenHeight;
+        }
+
+        var gameDiv = document.getElementById('GameDiv');
+        if (gameDiv) {
+          gameDiv.style.width = targetWidth + 'px';
+          gameDiv.style.height = targetHeight + 'px';
+        }
+      }
+      fitGameViewport();
+      window.addEventListener('resize', fitGameViewport);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(fitGameViewport, 150);
+      });
+      window.fitGameViewport = fitGameViewport;
+    })();
+  </script>
+
+  <!-- Enhanced Touch-to-Mouse & Gesture Polyfill for iPad/Touchscreens -->
+  <script>
+    (function () {
+      'use strict';
+
+      function patchCanvas(canvas) {
+        var activeId = null;
+        var twoTouchStart = null;
+        var lastTwoTouchMid = null;
+
+        function dispatchMouse(type, x, y, button, buttons) {
+          var evt = new MouseEvent(type, {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            clientX: x,
+            clientY: y,
+            screenX: x,
+            screenY: y,
+            button: button || 0,
+            buttons: buttons !== undefined ? buttons : (type === 'mouseup' ? 0 : 1)
+          });
+          canvas.dispatchEvent(evt);
+        }
+
+        function dispatchWheel(x, y, dx, dy) {
+          var evt = new WheelEvent('wheel', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            clientX: x,
+            clientY: y,
+            deltaX: dx,
+            deltaY: dy,
+            deltaMode: 0
+          });
+          canvas.dispatchEvent(evt);
+        }
+
+        var shovelTapped = false;
+        var handledButton = false;
+
+        function triggerKey(key, code, keyCode) {
+          var down = new KeyboardEvent('keydown', { key: key, code: code, keyCode: keyCode, which: keyCode, bubbles: true });
+          var up = new KeyboardEvent('keyup', { key: key, code: code, keyCode: keyCode, which: keyCode, bubbles: true });
+          window.dispatchEvent(down);
+          document.dispatchEvent(down);
+          if (canvas) canvas.dispatchEvent(down);
+          setTimeout(function () {
+            window.dispatchEvent(up);
+            document.dispatchEvent(up);
+            if (canvas) canvas.dispatchEvent(up);
+          }, 40);
+        }
+
+        function getNodeScreenPos(path) {
+          try {
+            var node = window.cc && window.cc.find && window.cc.find(path);
+            if (!node || !node.activeInHierarchy) return null;
+            var camera = window.cc.find('Canvas')?.getComponent(window.cc.Canvas)?.cameraComponent;
+            if (!camera) return null;
+            var screenPos = new window.cc.Vec3();
+            camera.worldToScreen(node.worldPosition, screenPos);
+            var dpr = (window.cc.view && window.cc.view.getDevicePixelRatio()) || window.devicePixelRatio || 1;
+            var bcr = canvas.getBoundingClientRect();
+            return {
+              x: bcr.left + screenPos.x / dpr,
+              y: bcr.top + (canvas.clientHeight - screenPos.y / dpr)
+            };
+          } catch (_) {
+            return null;
+          }
+        }
+
+        function checkTouch2x(clientX, clientY) {
+          try {
+            var s2xPos = getNodeScreenPos('Canvas/UIInGameUpper/2x');
+            if (s2xPos) {
+              var distSq = Math.pow(clientX - s2xPos.x, 2) + Math.pow(clientY - s2xPos.y, 2);
+              if (distSq <= 36 * 36) return true;
+            } else {
+              var bcr = canvas.getBoundingClientRect();
+              if (bcr.width > 0 && bcr.height > 0) {
+                var relX = (clientX - bcr.left) / bcr.width;
+                var relY = (clientY - bcr.top) / bcr.height;
+                if (relX >= 0.82 && relX <= 0.88 && relY >= 0.08 && relY <= 0.22) return true;
+              }
+            }
+          } catch (_) {}
+          return false;
+        }
+
+        function checkTouchPause(clientX, clientY) {
+          try {
+            var pPos = getNodeScreenPos('Canvas/pause');
+            if (pPos) {
+              var distSq = Math.pow(clientX - pPos.x, 2) + Math.pow(clientY - pPos.y, 2);
+              if (distSq <= 36 * 36) return true;
+            } else {
+              var bcr = canvas.getBoundingClientRect();
+              if (bcr.width > 0 && bcr.height > 0) {
+                var relX = (clientX - bcr.left) / bcr.width;
+                var relY = (clientY - bcr.top) / bcr.height;
+                if (relX >= 0.89 && relX <= 0.98 && relY >= 0.08 && relY <= 0.22) return true;
+              }
+            }
+          } catch (_) {}
+          return false;
+        }
+
+        function checkTouchShovel(clientX, clientY) {
+          try {
+            var shPos = getNodeScreenPos('Canvas/UIInGame/Shovel');
+            if (shPos) {
+              var distSq = Math.pow(clientX - shPos.x, 2) + Math.pow(clientY - shPos.y, 2);
+              // Strict 34px radius: 2x center is ~88px away so completely isolated
+              if (distSq <= 34 * 34) return true;
+            } else {
+              var bcr = canvas.getBoundingClientRect();
+              if (bcr.width > 0 && bcr.height > 0) {
+                var relX = (clientX - bcr.left) / bcr.width;
+                var relY = (clientY - bcr.top) / bcr.height;
+                // Strict shovel fallback zone: relX 0.74..0.805 (2x is at 0.85)
+                if (relX >= 0.74 && relX <= 0.805 && relY >= 0.14 && relY <= 0.25) {
+                  var uiInGame = window.cc && window.cc.find && window.cc.find('Canvas/UIInGame');
+                  if (uiInGame && uiInGame.active) return true;
+                }
+              }
+            }
+          } catch (_) {}
+          return false;
+        }
+
+        var container = canvas.parentElement || canvas;
+
+        container.addEventListener('touchstart', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          if (e.touches.length === 3) {
+            shovelTapped = false;
+            handledButton = false;
+            activeId = null;
+            console.log('[Touch] 3-finger tap: toggle performance modal');
+            if (window.__togglePerfModal) window.__togglePerfModal();
+            return;
+          }
+
+          if (e.touches.length === 1) {
+            var t = e.touches[0];
+            activeId = t.identifier;
+            twoTouchStart = null;
+            lastTwoTouchMid = null;
+
+            if (checkTouch2x(t.clientX, t.clientY)) {
+              console.log('[Touch] 2x button tapped! Toggling speed');
+              handledButton = true;
+              var ui = window.cc?.find('Canvas/UIInGame')?.components?.find(function (c) { return c.speedUp; });
+              if (ui && ui.speedUp) {
+                ui.speedUp();
+              }
+              return;
+            }
+
+            if (checkTouchPause(t.clientX, t.clientY)) {
+              console.log('[Touch] Pause button tapped! Toggling pause');
+              handledButton = true;
+              var ui = window.cc?.find('Canvas/UIInGame')?.components?.find(function (c) { return c.pause; });
+              if (ui && ui.pause) {
+                ui.pause();
+                return;
+              }
+              handledButton = false;
+            }
+
+            if (checkTouchShovel(t.clientX, t.clientY)) {
+              console.log('[Touch] Shovel button tapped! Triggering Key D toggle');
+              shovelTapped = true;
+              triggerKey('d', 'KeyD', 68);
+              return;
+            }
+            shovelTapped = false;
+            handledButton = false;
+
+            // Move mouse first so Cocos updates hover/position states, then mousedown
+            dispatchMouse('mousemove', t.clientX, t.clientY, 0, 1);
+            dispatchMouse('mousedown', t.clientX, t.clientY, 0, 1);
+          } else if (e.touches.length === 2) {
+            shovelTapped = false;
+            handledButton = false;
+            if (activeId !== null) {
+              dispatchMouse('mouseup', e.touches[0].clientX, e.touches[0].clientY, 0, 0);
+              activeId = null;
+            }
+            var t1 = e.touches[0], t2 = e.touches[1];
+            var midX = (t1.clientX + t2.clientX) / 2;
+            var midY = (t1.clientY + t2.clientY) / 2;
+            twoTouchStart = { time: Date.now(), x: midX, y: midY };
+            lastTwoTouchMid = { x: midX, y: midY };
+          }
+        }, { passive: false, capture: true });
+
+        container.addEventListener('touchmove', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          if (e.touches.length === 1 && activeId !== null) {
+            for (var i = 0; i < e.touches.length; i++) {
+              if (e.touches[i].identifier === activeId) {
+                var t = e.touches[i];
+                dispatchMouse('mousemove', t.clientX, t.clientY, 0, 1);
+                break;
+              }
+            }
+          } else if (e.touches.length === 2 && lastTwoTouchMid) {
+            var t1 = e.touches[0], t2 = e.touches[1];
+            var midX = (t1.clientX + t2.clientX) / 2;
+            var midY = (t1.clientY + t2.clientY) / 2;
+            var dx = midX - lastTwoTouchMid.x;
+            var dy = midY - lastTwoTouchMid.y;
+            lastTwoTouchMid = { x: midX, y: midY };
+
+            dispatchWheel(midX, midY, -dx * 2.5, -dy * 2.5);
+          }
+        }, { passive: false, capture: true });
+
+        container.addEventListener('touchend', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          if (handledButton) {
+            handledButton = false;
+            activeId = null;
+            return;
+          }
+
+          if (shovelTapped) {
+            shovelTapped = false;
+            activeId = null;
+            return;
+          }
+
+          if (activeId !== null) {
+            for (var i = 0; i < e.changedTouches.length; i++) {
+              if (e.changedTouches[i].identifier === activeId) {
+                var t = e.changedTouches[i];
+                dispatchMouse('mouseup', t.clientX, t.clientY, 0, 0);
+                dispatchMouse('click', t.clientX, t.clientY, 0, 0);
+                break;
+              }
+            }
+            activeId = null;
+          }
+
+          if (twoTouchStart) {
+            var duration = Date.now() - twoTouchStart.time;
+            if (duration < 400 && lastTwoTouchMid) {
+              var distSq = Math.pow(lastTwoTouchMid.x - twoTouchStart.x, 2) + Math.pow(lastTwoTouchMid.y - twoTouchStart.y, 2);
+              if (distSq < 400) {
+                var rx = twoTouchStart.x;
+                var ry = twoTouchStart.y;
+                dispatchMouse('mousedown', rx, ry, 2, 2);
+                dispatchMouse('mouseup', rx, ry, 2, 0);
+                var cEvt = new MouseEvent('contextmenu', {
+                  bubbles: true,
+                  cancelable: true,
+                  view: window,
+                  clientX: rx,
+                  clientY: ry,
+                  button: 2
+                });
+                canvas.dispatchEvent(cEvt);
+              }
+            }
+            twoTouchStart = null;
+            lastTwoTouchMid = null;
+          }
+        }, { passive: false, capture: true });
+
+        container.addEventListener('touchcancel', function (e) {
+          activeId = null;
+          twoTouchStart = null;
+          lastTwoTouchMid = null;
+        }, { passive: false, capture: true });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          var canvas = document.getElementById('GameCanvas');
+          if (canvas) patchCanvas(canvas);
+        });
+      } else {
+        var canvas = document.getElementById('GameCanvas');
+        if (canvas) patchCanvas(canvas);
+      }
+    })();
+  </script>
+
+
+  <!-- Diagnostic on-screen error banner (visible only on error) -->
+  <div id="debug-overlay" style="position:fixed;bottom:0;left:0;right:0;max-height:40%;overflow:auto;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:11px;z-index:999999;padding:6px;white-space:pre-wrap;pointer-events:auto;border-top:2px solid red;display:none;"></div>
+  <script>
+    (function() {
+      var overlay = document.getElementById('debug-overlay');
+      function show(msg, color) {
+        if (!overlay) overlay = document.getElementById('debug-overlay');
+        if (overlay) {
+          overlay.style.display = 'block';
+          var d = document.createElement('div');
+          d.style.color = color || '#f44';
+          d.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] ' + msg;
+          overlay.appendChild(d);
+        }
+      }
+      window.addEventListener('error', function(e) {
+        show('ERROR: ' + e.message + ' at ' + (e.filename ? e.filename.split('/').pop() : '') + ':' + e.lineno, '#ff4444');
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        show('PROMISE REJECTION: ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason), '#ff8833');
+      });
+      var origErr = console.error;
+      console.error = function() {
+        origErr.apply(console, arguments);
+        show('CONSOLE.ERR: ' + Array.prototype.slice.call(arguments).join(' '), '#ff5555');
+      };
+    })();
+  </script>
+
+  <!-- Polyfills bundle. -->
+  <script src="src/polyfills.bundle.js" charset="utf-8"> </script>
+
+  <!-- SystemJS support. -->
+  <script src="src/system.bundle.js" charset="utf-8"> </script>
+
+  <!-- Import map (inlined synchronously so SystemJS resolves bare 'cc' without network fetch) -->
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "cc": "./cocos-js/cc.js",
+        "./application.js": "./application.js"
+      }
+    }
+  </script>
+  <script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
+
+  <script src="tmpPatch.js"></script>
+  <script>
+    // 1. Resolve explicit entry URL to prevent SystemJS host-stripping
+    var baseUri = document.baseURI || (location.origin + '/');
+    var gameEntry = new URL('index.js', baseUri).href;
+    console.log('[Bootstrap] Starting Cocos game from:', gameEntry);
+
+    System.import(gameEntry)
+      .then(function() {
+        console.log('[Bootstrap] Game entry loaded successfully');
+      })
+      .catch(function(err) {
+        console.error('[Bootstrap] Failed to load game:', err);
+      });
+
+    // 2. Initialize audio pool asynchronously without blocking game engine startup
+    try {
+      var audioEntry = new URL('game-audio.js', baseUri).href;
+      import(audioEntry)
+        .then(function(audio) {
+          return audio.initializeGameAudio();
+        })
+        .then(function() {
+          console.log('[Bootstrap] Audio pool ready');
+        })
+        .catch(function(err) {
+          console.warn('[Bootstrap] Audio pool initialization warning (game continues):', err);
+        });
+    } catch (e) {
+      console.warn('[Bootstrap] Dynamic import error for audio:', e);
+    }
+  </script>
+</body>
+
+</html>

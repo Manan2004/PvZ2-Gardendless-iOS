@@ -1,0 +1,17 @@
+{
+  "appId": "com.gardendless.pvz2",
+  "appName": "PvZ2 Gardendless",
+  "webDir": "www",
+  "backgroundColor": "#000000",
+  "ios": {
+    "contentInset": "never",
+    "allowsLinkPreview": false,
+    "scrollEnabled": false,
+    "preferredContentMode": "mobile",
+    "backgroundColor": "#000000"
+  },
+  "server": {
+    "iosScheme": "https",
+    "hostname": "localhost"
+  }
+}
