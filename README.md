@@ -18,11 +18,11 @@ This port includes several touch-specific quality-of-life adjustments over the o
 - **In-Game Settings Menu**: Tap the gear icon in the bottom-left corner (or 3-finger tap anywhere) to open the settings menu. From here you can toggle:
   - **Auto-Collect**: Automatically collects dropped sun, coins, gems, sprouts, tickets, and plant food (when slots are open). Default is ON.
   - **Auto Fast-Forward**: Automatically starts each level at 2x speed. Default is ON.
-  - **Resolution & FPS**: Switch between 30 FPS, 60 FPS, and 120 FPS (for ProMotion screens such as iPad Pro M-series), or adjust rendering scale for older devices. **YOU HAVE TO RESTART THE GAME FOR CHANGES TO APPLY**.
-
+  - **Resolution & FPS**: Switch between 30 FPS, 60 FPS, and 120 FPS (for ProMotion screens such as iPad Pro M-series), or adjust rendering scale for older devices. **YOU HAVE TO RESTART THE GAME FOR CHANGES TO APPLY**. 
 <p align="center">
   <img src="screenshots/settings-menu.jpg" width="360" alt="iOS Settings and Performance Menu" />
 </p>
+
 - **Tap Sun Bank to Collect All**: Tapping the sun counter at the top-left triggers a full-screen sweep to collect all items (equivalent to pressing the 'A' key on PC). This works even if Auto-Collect is turned off.
 - **Touch Controls & Layout**:
   - Fixed touch dragging coordinate bugs on WebKit.
