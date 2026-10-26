@@ -186,10 +186,13 @@
         <div class="perf-check" style="font-size:16px;color:#06d6a0;display:none;">✓</div>
       </div>
 
-      <div style="margin-bottom:12px;padding:7px;background:#15161c;border-radius:8px;display:flex;align-items:center;justify-content:space-around;">
-        <span style="font-size:11px;color:#aaa;">FPS Limit:</span>
-        <button id="perf-fps-60" style="padding:4px 14px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #4ef;background:#2d3345;color:#4ef;-webkit-tap-highlight-color:transparent;">60 FPS</button>
-        <button id="perf-fps-30" style="padding:4px 14px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #555;background:#222;color:#888;-webkit-tap-highlight-color:transparent;">30 FPS (Cool)</button>
+      <div style="margin-bottom:12px;padding:7px 10px;background:#15161c;border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:6px;">
+        <span style="font-size:11px;color:#aaa;white-space:nowrap;">FPS Limit:</span>
+        <div style="display:flex;gap:6px;">
+          <button id="perf-fps-120" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #555;background:#222;color:#888;-webkit-tap-highlight-color:transparent;">120 FPS</button>
+          <button id="perf-fps-60" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #4ef;background:#2d3345;color:#4ef;-webkit-tap-highlight-color:transparent;">60 FPS</button>
+          <button id="perf-fps-30" style="padding:4px 10px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;border:1px solid #555;background:#222;color:#888;-webkit-tap-highlight-color:transparent;">30 FPS</button>
+        </div>
       </div>
 
       <button id="perf-modal-close" style="background:#3b3e4d;color:#fff;border:none;padding:8px 26px;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;-webkit-tap-highlight-color:transparent;">Close</button>
@@ -203,6 +206,7 @@
       var modal = document.getElementById('perf-modal');
       var closeBtn = document.getElementById('perf-modal-close');
       var optItems = document.querySelectorAll('.perf-opt-item');
+      var fps120Btn = document.getElementById('perf-fps-120');
       var fps60Btn = document.getElementById('perf-fps-60');
       var fps30Btn = document.getElementById('perf-fps-30');
       var toggleCollectBtn = document.getElementById('toggle-auto-collect');
@@ -220,20 +224,25 @@
         });
 
         var curFps = localStorage.getItem('pvzg_perf_fps') || '60';
-        if (curFps === '30') {
+        [fps120Btn, fps60Btn, fps30Btn].forEach(function(b) {
+          if (b) {
+            b.style.border = '1px solid #555';
+            b.style.background = '#222';
+            b.style.color = '#888';
+          }
+        });
+        if (curFps === '120' && fps120Btn) {
+          fps120Btn.style.border = '1px solid #c084fc';
+          fps120Btn.style.background = '#3b1d54';
+          fps120Btn.style.color = '#e9d5ff';
+        } else if (curFps === '30' && fps30Btn) {
           fps30Btn.style.border = '1px solid #00f2fe';
           fps30Btn.style.background = '#1e3340';
           fps30Btn.style.color = '#00f2fe';
-          fps60Btn.style.border = '1px solid #555';
-          fps60Btn.style.background = '#222';
-          fps60Btn.style.color = '#888';
-        } else {
+        } else if (fps60Btn) {
           fps60Btn.style.border = '1px solid #4ef';
           fps60Btn.style.background = '#2d3345';
           fps60Btn.style.color = '#4ef';
-          fps30Btn.style.border = '1px solid #555';
-          fps30Btn.style.background = '#222';
-          fps30Btn.style.color = '#888';
         }
 
         // Gameplay Toggles UI
@@ -349,6 +358,7 @@
         }
       }
 
+      if (fps120Btn) fps120Btn.addEventListener('click', function(e) { e.stopPropagation(); applyFPS(120); });
       if (fps60Btn) fps60Btn.addEventListener('click', function(e) { e.stopPropagation(); applyFPS(60); });
       if (fps30Btn) fps30Btn.addEventListener('click', function(e) { e.stopPropagation(); applyFPS(30); });
     })();
