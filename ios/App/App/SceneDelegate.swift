@@ -3,6 +3,34 @@ import WebKit
 import Capacitor
 
 class MainViewController: CAPBridgeViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupAudioLifecycleObservers()
+    }
+
+    private func setupAudioLifecycleObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc private func appWillResignActive() {
+        self.webView?.evaluateJavaScript("window.audioEngine?.pauseAll?.();", completionHandler: nil)
+    }
+
+    @objc private func appDidEnterBackground() {
+        self.webView?.evaluateJavaScript("window.audioEngine?.pauseAll?.();", completionHandler: nil)
+    }
+
+    @objc private func appDidBecomeActive() {
+        self.webView?.evaluateJavaScript("window.audioEngine?.resumeAll?.();", completionHandler: nil)
+    }
+
+    @objc private func appWillEnterForeground() {
+        self.webView?.evaluateJavaScript("window.audioEngine?.resumeAll?.();", completionHandler: nil)
+    }
+
     override func webViewConfiguration(for instanceConfiguration: InstanceConfiguration) -> WKWebViewConfiguration {
         let config = super.webViewConfiguration(for: instanceConfiguration)
         unlockHighRefreshRate(preferences: config.preferences)
@@ -57,6 +85,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         SceneDelegateProxy.shared.scene(scene, willConnectTo: session, options: connectionOptions)
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        if let mvc = window?.rootViewController as? MainViewController {
+            mvc.webView?.evaluateJavaScript("window.audioEngine?.pauseAll?.();", completionHandler: nil)
+        }
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        if let mvc = window?.rootViewController as? MainViewController {
+            mvc.webView?.evaluateJavaScript("window.audioEngine?.pauseAll?.();", completionHandler: nil)
+        }
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        if let mvc = window?.rootViewController as? MainViewController {
+            mvc.webView?.evaluateJavaScript("window.audioEngine?.resumeAll?.();", completionHandler: nil)
+        }
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        if let mvc = window?.rootViewController as? MainViewController {
+            mvc.webView?.evaluateJavaScript("window.audioEngine?.resumeAll?.();", completionHandler: nil)
+        }
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

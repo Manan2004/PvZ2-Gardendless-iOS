@@ -9,6 +9,7 @@ export class AudioEngine {
         this.pool = [];
         this.nextId = 1;
         this.byId = new Map();
+        this.isSuspended = false;
     }
 
     async init() {
@@ -27,6 +28,7 @@ export class AudioEngine {
                 restartBeforeEnd: null,
                 restartTimer: null,
                 fadeTimer: null,
+                wasPlayingBeforeSuspend: false,
             });
         }
     }
@@ -73,6 +75,7 @@ export class AudioEngine {
         slot.speed = speed;
         slot.volume = volume;
         slot.restartBeforeEnd = null;
+        slot.wasPlayingBeforeSuspend = false;
 
         this.byId.set(slot.id, slot);
 
@@ -81,6 +84,11 @@ export class AudioEngine {
             console.error('[audio] load error:', src);
             this.releaseSlot(slot);
         };
+
+        if (this.isSuspended) {
+            slot.wasPlayingBeforeSuspend = true;
+            return slot.id;
+        }
 
         el.play().catch(err => {
             console.error('[audio] play failed:', err);
@@ -94,6 +102,7 @@ export class AudioEngine {
         if (!slot.playing) return;
         slot.playing = false;
         slot.fading = false;
+        slot.wasPlayingBeforeSuspend = false;
         slot.restartBeforeEnd = null;
 
         if (slot.restartTimer) {
@@ -131,8 +140,13 @@ export class AudioEngine {
         const slot = this.getSlot(id);
         if (!slot) return;
         if (playing) {
-            slot.el.play().catch(() => { });
+            if (!this.isSuspended) {
+                slot.el.play().catch(() => { });
+            } else {
+                slot.wasPlayingBeforeSuspend = true;
+            }
         } else {
+            slot.wasPlayingBeforeSuspend = false;
             slot.el.pause();
         }
     }
@@ -194,13 +208,14 @@ export class AudioEngine {
         }, stepMs);
     }
 
-    setRestartBeforeEnd(id, beforeMs) {
-        const slot = this.getSlot(id);
-        if (!slot) return;
-        slot.restartBeforeEnd = beforeMs / 1000;
-
+    _scheduleRestart(slot) {
+        if (!slot.playing || slot.restartBeforeEnd === null || this.isSuspended) return;
+        if (slot.restartTimer) {
+            clearTimeout(slot.restartTimer);
+            slot.restartTimer = null;
+        }
         const schedule = () => {
-            if (!slot.playing || slot.restartBeforeEnd === null) return;
+            if (!slot.playing || slot.restartBeforeEnd === null || this.isSuspended) return;
             const el = slot.el;
             if (!isFinite(el.duration)) {
                 slot.restartTimer = setTimeout(schedule, 100);
@@ -213,7 +228,7 @@ export class AudioEngine {
                 schedule();
             } else {
                 slot.restartTimer = setTimeout(() => {
-                    if (!slot.playing) return;
+                    if (!slot.playing || this.isSuspended) return;
                     el.currentTime = 0;
                     schedule();
                 }, remaining);
@@ -222,10 +237,52 @@ export class AudioEngine {
         schedule();
     }
 
+    setRestartBeforeEnd(id, beforeMs) {
+        const slot = this.getSlot(id);
+        if (!slot) return;
+        slot.restartBeforeEnd = beforeMs / 1000;
+        this._scheduleRestart(slot);
+    }
+
     destroy(id) {
         const slot = this.getSlot(id);
         if (!slot) return;
         this.releaseSlot(slot);
+    }
+
+    pauseAll() {
+        if (this.isSuspended) return;
+        this.isSuspended = true;
+        for (const slot of this.pool) {
+            if (slot.playing) {
+                slot.wasPlayingBeforeSuspend = true;
+                if (slot.restartTimer) {
+                    clearTimeout(slot.restartTimer);
+                    slot.restartTimer = null;
+                }
+                try {
+                    slot.el.pause();
+                } catch (_) {}
+            } else {
+                slot.wasPlayingBeforeSuspend = false;
+            }
+        }
+    }
+
+    resumeAll() {
+        if (!this.isSuspended) return;
+        this.isSuspended = false;
+        for (const slot of this.pool) {
+            if (slot.wasPlayingBeforeSuspend && slot.playing) {
+                slot.wasPlayingBeforeSuspend = false;
+                try {
+                    slot.el.play().catch(() => {});
+                } catch (_) {}
+                if (slot.restartBeforeEnd !== null) {
+                    this._scheduleRestart(slot);
+                }
+            }
+        }
     }
 
     cleanupFinished() {
@@ -255,6 +312,27 @@ export async function initializeGameAudio() {
         const engine = new AudioEngine(await response.json(), audioRoot);
         await engine.init();
         window.audioEngine = engine;
+
+        // Automatically pause all audio when app is hidden or backgrounded, resume when active
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                engine.pauseAll();
+            } else {
+                engine.resumeAll();
+            }
+        });
+        window.addEventListener('pagehide', () => engine.pauseAll());
+        window.addEventListener('pageshow', () => engine.resumeAll());
+        window.addEventListener('blur', () => {
+            if (document.hidden) {
+                engine.pauseAll();
+            }
+        });
+        window.addEventListener('focus', () => {
+            if (!document.hidden) {
+                engine.resumeAll();
+            }
+        });
     } catch (e) {
         console.warn('[Audio] Failed to load audio manifest:', e);
         window.audioEngine = {
@@ -271,7 +349,9 @@ export async function initializeGameAudio() {
             getPosition: () => [0, null],
             getDuration: () => null,
             cleanupFinished: () => 0,
-            listClips: () => []
+            listClips: () => [],
+            pauseAll: () => {},
+            resumeAll: () => {}
         };
     }
 }
