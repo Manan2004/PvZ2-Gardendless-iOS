@@ -24,9 +24,9 @@
           "version": "0.16.8",
           "buildVersion": "168",
           "date": "2026-11-04",
-          "size": 1201467617,
+          "size": 1201467568,
           "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.8/PvZ2_Gardendless.ipa",
-          "localizedDescription": "• Synchronized with PC version 0.16.8 (Aqua Vine, Kungfu Zomboss, Lawn Rift).\n• Fixed startup loading freeze at 'Loading SFXs'.\n• Added 126 new audio files and 44 updated asset packs.\n• Fixed conveyor belt and Piñata Party crash.\n• Retained 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.",
+          "localizedDescription": "• Synchronized with PC version 0.16.8 (Aqua Vine, Kungfu Zomboss, Lawn Rift).\n• Fixed startup loading freeze at 'Loading SFXs'.\n• Fixed false in-game update to 0.16.8 notification.\n• Added 126 new audio files and 44 updated asset packs.\n• Fixed conveyor belt and Piñata Party crash.\n• Retained 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.",
           "minOSVersion": "15.0"
         },
         {

@@ -219,11 +219,32 @@ window.electronAPI = {
   listLevels: () => levelRequest('readonly', store => store.getAllKeys()),
 };
 
-// Audio extension compatibility fallback (.m4a <-> .mp3)
+// Audio extension compatibility fallback (.m4a <-> .mp3) and version intercept
 (function () {
   const origFetch = window.fetch;
   if (typeof origFetch === 'function') {
     window.fetch = async function (input, init) {
+      // Intercept upstream gameinfo update checks so iOS port stays on 0.16.8 without false alerts
+      try {
+        var urlStr = (typeof input === 'string') ? input : (input && input.url ? input.url : '');
+        if (urlStr && urlStr.indexOf('pvzge.com/jsons/gameinfo.json') !== -1) {
+          return new Response(JSON.stringify({
+            Name: "PvZ2_Prerelease_GitHubLevels",
+            Version: "v0.16.8",
+            InsideVersion: "0.16.8",
+            Updates: [
+              {
+                en: "iOS port v0.16.8 up to date.",
+                zh: "iOS 移植版 v0.16.8 已是最新版本。"
+              }
+            ]
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+      } catch (_) {}
+
       let resolvedInput = input;
       if (typeof input === 'string' && input.endsWith('.m4a')) {
         resolvedInput = input.slice(0, -4) + '.mp3';
