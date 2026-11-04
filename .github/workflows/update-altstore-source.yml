@@ -1,0 +1,97 @@
+name: Update AltStore Source
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update apps.json from latest release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          node -e '
+          const fs = require("fs");
+          const { execSync } = require("child_process");
+
+          async function run() {
+            const repo = process.env.REPO;
+            const res = execSync(`gh api repos/${repo}/releases/latest`, { encoding: "utf8" });
+            const rel = JSON.parse(res);
+
+            const tagName = rel.tag_name;
+            const version = tagName.replace(/^v/, "");
+            const buildVersion = version.replace(/[^0-9]/g, "");
+            const dateStr = rel.published_at.split("T")[0];
+            const ipaAsset = (rel.assets || []).find(a => a.name.endsWith(".ipa"));
+
+            if (!ipaAsset) {
+              console.log("No .ipa asset found on latest release, skipping.");
+              return;
+            }
+
+            const appsData = JSON.parse(fs.readFileSync("apps.json", "utf8"));
+            const targetApp = appsData.apps[0];
+
+            const existingIdx = targetApp.versions.findIndex(v => v.version === version);
+            const newEntry = {
+              version: version,
+              buildVersion: buildVersion || version,
+              date: dateStr,
+              size: ipaAsset.size,
+              downloadURL: ipaAsset.browser_download_url,
+              localizedDescription: (rel.body || "").slice(0, 400).trim(),
+              minOSVersion: "15.0"
+            };
+
+            if (existingIdx !== -1) {
+              targetApp.versions[existingIdx] = newEntry;
+            } else {
+              targetApp.versions.unshift(newEntry);
+            }
+
+            // Update news
+            const newsId = `pvz2-gardendless-${version.replace(/[^a-zA-Z0-9]/g, "-")}`;
+            if (!appsData.news.some(n => n.identifier === newsId)) {
+              appsData.news.unshift({
+                title: `PvZ2 Gardendless v${version} Released!`,
+                identifier: newsId,
+                caption: `New release v${version} is now available in AltStore!`,
+                date: dateStr,
+                appID: targetApp.bundleIdentifier,
+                imageURL: targetApp.iconURL,
+                notify: true
+              });
+            }
+
+            fs.writeFileSync("apps.json", JSON.stringify(appsData, null, 2) + "\n");
+            console.log(`Successfully updated apps.json for ${version}!`);
+          }
+
+          run().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          '
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update AltStore source for ${{ github.event.release.tag_name || 'latest release' }}" && git push)

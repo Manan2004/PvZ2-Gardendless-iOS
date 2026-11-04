@@ -4,6 +4,35 @@ An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendle
 
 ## Download & Installation
 
+### 📲 AltStore & SideStore Source (One-Click Updates)
+
+You can add this repository as a source in **AltStore** or **SideStore** to install the app and receive automatic update notifications whenever a new version is released:
+
+<p align="left">
+  <a href="altstore://source?url=https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/apps.json">
+    <img src="https://img.shields.io/badge/Add%20to-AltStore-2453ff?style=for-the-badge&logo=apple&logoColor=white" alt="Add to AltStore" />
+  </a>
+  &nbsp;
+  <a href="sidestore://source?url=https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/apps.json">
+    <img src="https://img.shields.io/badge/Add%20to-SideStore-9333ea?style=for-the-badge&logo=apple&logoColor=white" alt="Add to SideStore" />
+  </a>
+</p>
+
+**Direct Source URL (Copy & Paste):**
+```text
+https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/apps.json
+```
+
+#### How to Add the Source Manually:
+1. Open **AltStore** or **SideStore** on your iPhone or iPad.
+2. Go to the **Sources** tab and tap the **+** button in the top-right corner.
+3. Paste `https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/apps.json` and tap **Add**.
+4. Navigate to the **Browse** tab, locate **PvZ2 Gardendless**, and tap **FREE** or **UPDATE**!
+
+---
+
+### Manual Sideloading (Direct IPA)
+
 Pre-built IPA files are available on the [Releases](https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases) page.
 
 You can install the IPA using any standard sideloading tool:

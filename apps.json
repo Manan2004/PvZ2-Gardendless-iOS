@@ -1,0 +1,59 @@
+{
+  "name": "PvZ2 Gardendless iOS",
+  "identifier": "com.gardendless.pvz2.source",
+  "subtitle": "Plants vs. Zombies 2: Gardendless for iOS & iPadOS",
+  "description": "Official iOS port of Plants vs. Zombies 2: Gardendless, featuring touch controls, 120 FPS ProMotion support, auto-collect, auto fast-forward, and iPadOS optimizations.",
+  "iconURL": "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/icon.png",
+  "headerURL": "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/settings-menu.jpg",
+  "website": "https://github.com/Manan2004/PvZ2-Gardendless-iOS",
+  "tintColor": "#22c55e",
+  "apps": [
+    {
+      "name": "PvZ2 Gardendless",
+      "bundleIdentifier": "com.gardendless.pvz2",
+      "developerName": "Manan2004",
+      "subtitle": "PvZ 2 PC fan-game adapted for iOS & iPadOS",
+      "localizedDescription": "Plants vs. Zombies 2: Gardendless ported to iOS and iPadOS with complete touch controls, ProMotion 120Hz support, in-game performance menu, auto-collect, and save management.",
+      "iconURL": "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/icon.png",
+      "tintColor": "#22c55e",
+      "screenshotURLs": [
+        "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/settings-menu.jpg"
+      ],
+      "versions": [
+        {
+          "version": "0.16.8",
+          "buildVersion": "168",
+          "date": "2026-11-04",
+          "size": 1201440204,
+          "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.8/PvZ2_Gardendless.ipa",
+          "localizedDescription": "• Synchronized with PC version 0.16.8 (Aqua Vine, Kungfu Zomboss, Lawn Rift).\n• Added 126 new audio files and 44 updated asset packs.\n• Fixed conveyor belt and Piñata Party crash.\n• Fixed background audio AbortError.\n• Retained 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.",
+          "minOSVersion": "15.0"
+        },
+        {
+          "version": "0.16.1",
+          "buildVersion": "161",
+          "date": "2026-10-29",
+          "size": 1196825185,
+          "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.1-1/PvZ2_Gardendless.ipa",
+          "localizedDescription": "• 120 FPS ProMotion support for iPad Pro and iPhone Pro.\n• In-game settings menu with Auto-Collect & Auto Fast-Forward toggles.\n• Audio lifecycle fixes and volume balancing.\n• Multi-lane plant performance optimization.",
+          "minOSVersion": "15.0"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      }
+    }
+  ],
+  "news": [
+    {
+      "title": "PvZ2 Gardendless v0.16.8 Released!",
+      "identifier": "pvz2-gardendless-0-16-8",
+      "caption": "Updated to PC version 0.16.8 with Aqua Vine, crash fixes, and 126 new audio files.",
+      "date": "2026-11-04",
+      "appID": "com.gardendless.pvz2",
+      "imageURL": "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/icon.png",
+      "notify": true
+    }
+  ]
+}
