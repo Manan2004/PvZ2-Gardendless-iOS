@@ -32,7 +32,7 @@
     })();
   </script>
 
-  <title>PvZ2 Gardendless Online | 0.16.1</title>
+  <title>PvZ2 Gardendless Online | 0.16.8</title>
 
   <!--http://www.html5rocks.com/en/mobile/mobifying/-->
   <meta name="viewport"
@@ -893,19 +893,49 @@
   </script>
 
 
-  <!-- Diagnostic on-screen error banner (visible only on error) -->
-  <div id="debug-overlay" style="position:fixed;bottom:0;left:0;right:0;max-height:40%;overflow:auto;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:11px;z-index:999999;padding:6px;white-space:pre-wrap;pointer-events:auto;border-top:2px solid red;display:none;"></div>
+  <!-- Diagnostic on-screen error banner (visible only on error, capped & tap-to-dismiss) -->
+  <div id="debug-overlay" style="position:fixed;bottom:0;left:0;right:0;max-height:35%;overflow:auto;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:11px;z-index:999999;padding:6px;white-space:pre-wrap;pointer-events:auto;border-top:2px solid red;display:none;-webkit-overflow-scrolling:touch;" title="Tap to dismiss"></div>
   <script>
     (function() {
       var overlay = document.getElementById('debug-overlay');
+      var lastMsg = '';
+      var lastDiv = null;
+      var repeatCount = 1;
+      if (overlay) {
+        overlay.addEventListener('click', function() {
+          overlay.style.display = 'none';
+        });
+      }
       function show(msg, color) {
-        if (!overlay) overlay = document.getElementById('debug-overlay');
-        if (overlay) {
-          overlay.style.display = 'block';
-          var d = document.createElement('div');
-          d.style.color = color || '#f44';
-          d.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] ' + msg;
-          overlay.appendChild(d);
+        var cleanMsg = (msg || '').toString().slice(0, 300);
+        if (cleanMsg.indexOf('AbortError') !== -1 || cleanMsg.indexOf('operation was aborted') !== -1 || cleanMsg.indexOf('NotAllowedError') !== -1) {
+          return;
+        }
+        if (localStorage.getItem('pvzg_debug_overlay') !== 'true') {
+          return;
+        }
+        if (!overlay) {
+          overlay = document.getElementById('debug-overlay');
+          if (overlay) {
+            overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
+          }
+        }
+        if (!overlay) return;
+        overlay.style.display = 'block';
+        if (cleanMsg === lastMsg && lastDiv) {
+          repeatCount++;
+          lastDiv.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] (x' + repeatCount + ') ' + cleanMsg;
+          return;
+        }
+        lastMsg = cleanMsg;
+        repeatCount = 1;
+        var d = document.createElement('div');
+        d.style.color = color || '#f44';
+        d.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] ' + cleanMsg;
+        overlay.appendChild(d);
+        lastDiv = d;
+        while (overlay.children.length > 15) {
+          overlay.removeChild(overlay.firstChild);
         }
       }
       window.addEventListener('error', function(e) {

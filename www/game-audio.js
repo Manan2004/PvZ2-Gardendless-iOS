@@ -81,7 +81,7 @@ export class AudioEngine {
 
         el.onended = () => this.releaseSlot(slot);
         el.onerror = () => {
-            console.error('[audio] load error:', src);
+            console.warn('[audio] load error:', src);
             this.releaseSlot(slot);
         };
 
@@ -90,10 +90,19 @@ export class AudioEngine {
             return slot.id;
         }
 
-        el.play().catch(err => {
-            console.error('[audio] play failed:', err);
-            this.releaseSlot(slot);
-        });
+        const p = el.play();
+        if (p && typeof p.catch === "function") {
+            p.catch(err => {
+                // AbortError is normal when pause() is called during backgrounding/swiping out
+                if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) {
+                    return;
+                }
+                console.warn('[audio] play rejected:', err);
+                if (!slot.wasPlayingBeforeSuspend) {
+                    this.releaseSlot(slot);
+                }
+            });
+        }
 
         return slot.id;
     }

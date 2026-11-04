@@ -1,6 +1,6 @@
 # Plants vs. Zombies 2: Gardendless (iOS Port)
 
-An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendless** (v0.16.1), packaged using Capacitor and Cocos Creator.
+An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendless** (v0.16.8), packaged using Capacitor and Cocos Creator.
 
 ## Download & Installation
 
@@ -10,6 +10,25 @@ You can install the IPA using any standard sideloading tool:
 - **TrollStore** (recommended if your iOS version supports it): Open `PvZ2_Gardendless.ipa` directly in TrollStore and install.
 - **AltStore / SideStore**: Add the downloaded IPA through the **+** button in the My Apps tab.
 - **Sideloadly**: Connect your device to your computer, drag the IPA into Sideloadly, and start installation.
+
+## What's New in v0.16.8 (iOS Port)
+
+- **Upstream v0.16.8 Synchronization**:
+  - Full parity with PC v0.16.8 upstream release.
+  - Added new plants and projectiles (including Aqua Vine, Aqua Vine Plant Food, Kongfu Zomboss Bomb, and Lawn Rift).
+  - Synchronized 126 new audio tracks and sound effects with updated sound manifest.
+  - Updated 34 asset pack bundles and 10 standalone/cconb game assets.
+  - Integrated upstream screenshot utility (`captureScreenshot`).
+- **Piñata Party & In-Game Crash Fixes**:
+  - Resolved `detectEnemyExtra` null-reference exceptions on Fire Peashooter, Threepeater, Electric Peashooter, and Cold Snapdragon during conveyer-belt levels and Piñata Parties.
+  - Added safe bounds and error guards to plant targeting routines.
+- **Audio Lifecycle & Backgrounding Fix**:
+  - Filtered out WebKit `AbortError` / `NotAllowedError` rejections when swiping out or backgrounding the app.
+  - Retained strict background audio pausing to eliminate dual audio playback.
+- **Performance & Touch Optimizations**:
+  - DragonBones armature batching enabled for projectiles and plant accessories.
+  - Uniform caching to prevent GPU stalls when dozens of plants are placed on the lawn.
+  - Preserved 30/60/120 FPS ProMotion toggle, Auto-Collect, and Auto Fast-Forward.
 
 ## iOS Features & Changes
 
