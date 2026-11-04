@@ -218,3 +218,40 @@ window.electronAPI = {
   removeLevel: path => levelRequest('readwrite', store => store.delete(path)),
   listLevels: () => levelRequest('readonly', store => store.getAllKeys()),
 };
+
+// Audio extension compatibility fallback (.m4a <-> .mp3)
+(function () {
+  const origFetch = window.fetch;
+  if (typeof origFetch === 'function') {
+    window.fetch = async function (input, init) {
+      let resolvedInput = input;
+      if (typeof input === 'string' && input.endsWith('.m4a')) {
+        resolvedInput = input.slice(0, -4) + '.mp3';
+      } else if (input instanceof Request && input.url.endsWith('.m4a')) {
+        resolvedInput = new Request(input.url.slice(0, -4) + '.mp3', input);
+      }
+      try {
+        const response = await origFetch.call(this, resolvedInput, init);
+        if (!response.ok && resolvedInput !== input) {
+          return origFetch.call(this, input, init);
+        }
+        return response;
+      } catch (err) {
+        if (resolvedInput !== input) {
+          return origFetch.call(this, input, init);
+        }
+        throw err;
+      }
+    };
+  }
+
+  if (typeof XMLHttpRequest !== 'undefined' && XMLHttpRequest.prototype.open) {
+    const origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (typeof url === 'string' && url.endsWith('.m4a')) {
+        url = url.slice(0, -4) + '.mp3';
+      }
+      return origOpen.apply(this, arguments);
+    };
+  }
+})();
