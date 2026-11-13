@@ -217,11 +217,34 @@ window.electronAPI = {
   loadLevel: path => levelRequest('readonly', store => store.get(path)).then(value => value ?? null),
   removeLevel: path => levelRequest('readwrite', store => store.delete(path)),
   listLevels: () => levelRequest('readonly', store => store.getAllKeys()),
-  checkRemoteUpdate: (lang) => console.log('[UpdateCheck] remote update check invoked for:', lang),
+  checkRemoteUpdate: (lang) => { console.log('[UpdateCheck] remote update check invoked for:', lang); return Promise.resolve(null); },
   openMarkdownWindow: (filePath, title, tag) => window.open('https://github.com/Manan2004/PvZ2-Gardendless-iOS#readme', '_blank'),
   closeUpdateWindow: () => {},
+  closeMusicPackWindow: () => {},
+  openMusicPackWindow: () => {},
+  isMarkdownWindowOpen: () => Promise.resolve(false),
+  isGithubWindowOpen: () => Promise.resolve(false),
+  openKeybindWindow: () => {},
+  listMusicPacks: () => Promise.resolve([]),
+  getMusicPackAudioUrl: () => '',
   onMusicPackChanged: (callback) => () => {},
+  getVersionInfo: () => Promise.resolve({ Version: "v0.16.26", InsideVersion: "0.16.26" }),
+  getMassageSync: () => '',
+  getAllResolutionsSync: () => [],
 };
+
+// Wrap in Proxy to guarantee no missing Electron API method will ever throw or break scene transitions
+window.electronAPI = new Proxy(window.electronAPI, {
+  get(target, prop) {
+    if (prop in target) {
+      return target[prop];
+    }
+    return (...args) => {
+      console.log(`[ElectronAPI Mock] No-op call for: ${String(prop)}`, args);
+      return Promise.resolve(null);
+    };
+  }
+});
 
 // Audio extension compatibility fallback (.m4a <-> .mp3) and version intercept
 (function () {
@@ -279,4 +302,48 @@ window.electronAPI = {
       return origOpen.apply(this, arguments);
     };
   }
+})();
+
+// Universal Safe Lane Proxy: Prevents out-of-bounds row crashes (lanes < 0 or > 4)
+// whenever plants/zombies/projectiles query UpperLane or LowerLane.
+(function () {
+  var dummyNode = null;
+  function getDummyNode() {
+    if (!dummyNode && window.cc && window.cc.Node) {
+      dummyNode = new window.cc.Node('DummyLaneNode');
+    }
+    return dummyNode || {};
+  }
+
+  var returnEmptyArr = function () { return []; };
+  var returnFalse = function () { return false; };
+  var noop = function () {};
+
+  var safeLaneProxy = new Proxy({}, {
+    get: function (target, prop) {
+      if (prop === 'UpperLane' || prop === 'LowerLane') return safeLaneProxy;
+      if (prop === 'LaneIndex') return -1;
+      if (prop === 'isInLawn' || prop === 'hurrikaleBlowing' || prop === 'readHaveDeepWater') return returnFalse;
+      if (prop === 'isSea') return false;
+      if (prop === 'midY' || prop === 'floorY' || prop === 'hurrikaleDuration' || prop === 'meltCountdown' || prop === 'zombieSpawnOffset') return 0;
+      if (prop === 'zombiePool' || prop === 'hypnoZombiePool' || prop === 'tombPool' || prop === 'tntPool' || prop === 'icecubePool' || prop === 'prjPool' || prop === 'plantPool' || prop === 'dinosaurPool' || prop === 'gumPool') {
+        return returnEmptyArr;
+      }
+      if (prop === 'iceTiles' || prop === 'plants' || prop === 'zombies' || prop === 'hypnoZombies' || prop === 'dinosaurs' || prop === 'gums' || prop === 'tombStones' || prop === 'plantProjectiles' || prop === 'laneLnCs') {
+        return [];
+      }
+      if (prop === 'prjLayer' || prop === 'tileLayer' || prop === 'icetileLayer' || prop === 'tombLayer' || prop === 'glitterLayer' || prop === 'dinoLayer' || prop === 'zombieLayer' || prop === 'hypnoZombieLayer' || prop === 'foodPlantLayer' || prop === 'node') {
+        return getDummyNode();
+      }
+      if (typeof prop === 'string' && (prop.startsWith('add') || prop.startsWith('delete') || prop.startsWith('clear') || prop.startsWith('set'))) {
+        return noop;
+      }
+      if (prop === 'spawnMower') return function () { return Promise.resolve(null); };
+      if (prop === 'chillWind') return function () { return { PSD: null }; };
+      if (prop in target) return target[prop];
+      return returnEmptyArr;
+    }
+  });
+
+  window.__dummyLane = safeLaneProxy;
 })();

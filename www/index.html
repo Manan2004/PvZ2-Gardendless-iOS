@@ -893,62 +893,17 @@
   </script>
 
 
-  <!-- Diagnostic on-screen error banner (visible only on error, capped & tap-to-dismiss) -->
-  <div id="debug-overlay" style="position:fixed;bottom:0;left:0;right:0;max-height:35%;overflow:auto;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:11px;z-index:999999;padding:6px;white-space:pre-wrap;pointer-events:auto;border-top:2px solid red;display:none;-webkit-overflow-scrolling:touch;" title="Tap to dismiss"></div>
+  <!-- Native logging only for release (no on-screen DOM overlay) -->
   <script>
     (function() {
-      var overlay = document.getElementById('debug-overlay');
-      var lastMsg = '';
-      var lastDiv = null;
-      var repeatCount = 1;
-      if (overlay) {
-        overlay.addEventListener('click', function() {
-          overlay.style.display = 'none';
-        });
-      }
-      function show(msg, color) {
-        var cleanMsg = (msg || '').toString().slice(0, 300);
-        if (cleanMsg.indexOf('AbortError') !== -1 || cleanMsg.indexOf('operation was aborted') !== -1 || cleanMsg.indexOf('NotAllowedError') !== -1) {
-          return;
-        }
-        if (localStorage.getItem('pvzg_debug_overlay') !== 'true') {
-          return;
-        }
-        if (!overlay) {
-          overlay = document.getElementById('debug-overlay');
-          if (overlay) {
-            overlay.addEventListener('click', function() { overlay.style.display = 'none'; });
-          }
-        }
-        if (!overlay) return;
-        overlay.style.display = 'block';
-        if (cleanMsg === lastMsg && lastDiv) {
-          repeatCount++;
-          lastDiv.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] (x' + repeatCount + ') ' + cleanMsg;
-          return;
-        }
-        lastMsg = cleanMsg;
-        repeatCount = 1;
-        var d = document.createElement('div');
-        d.style.color = color || '#f44';
-        d.textContent = '[' + new Date().toTimeString().slice(0, 8) + '] ' + cleanMsg;
-        overlay.appendChild(d);
-        lastDiv = d;
-        while (overlay.children.length > 15) {
-          overlay.removeChild(overlay.firstChild);
-        }
-      }
-      window.addEventListener('error', function(e) {
-        show('ERROR: ' + e.message + ' at ' + (e.filename ? e.filename.split('/').pop() : '') + ':' + e.lineno, '#ff4444');
-      });
+      // Ensure unhandled rejections and errors are logged clearly to console without interrupting gameplay
       window.addEventListener('unhandledrejection', function(e) {
-        show('PROMISE REJECTION: ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason), '#ff8833');
+        var reason = e.reason && (e.reason.stack || e.reason.message) || e.reason;
+        console.warn('[UnhandledRejection]', reason);
       });
-      var origErr = console.error;
-      console.error = function() {
-        origErr.apply(console, arguments);
-        show('CONSOLE.ERR: ' + Array.prototype.slice.call(arguments).join(' '), '#ff5555');
-      };
+      window.addEventListener('error', function(e) {
+        console.warn('[Error]', e.message, 'at', e.filename, ':', e.lineno);
+      });
     })();
   </script>
 

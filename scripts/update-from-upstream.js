@@ -219,6 +219,93 @@ async function main() {
   fs.writeFileSync(path.join(WWW_DIR, 'assets/internal/config.json'), rawInternalConfig, 'utf8');
   console.log('  Updated manifest.json and bundle config.jsons.\n');
 
+  // 4b. Extract standalone fallback assets for unpacked prefabs
+  console.log('[4b/8] Verifying and generating standalone fallback assets for unpacked prefabs...');
+  const activePacks = new Set(Object.keys(upResourcesConfig.packs || {}));
+  const activeConfigUuids = new Set(upResourcesConfig.uuids || []);
+  const neededMissing = new Map();
+  const visitedImportFiles = new Set();
+
+  function scanPrefabDependencies(filePath) {
+    if (visitedImportFiles.has(filePath)) return;
+    visitedImportFiles.add(filePath);
+    if (!fs.existsSync(filePath)) return;
+    try {
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      if (Array.isArray(data) && Array.isArray(data[1])) {
+        data[1].forEach(u => {
+          if (typeof u === 'string') {
+            const base = u.split('@')[0];
+            if (!activeConfigUuids.has(u) && !activeConfigUuids.has(base)) {
+              const fullUuid = decodeUuid(base);
+              const sub = fullUuid.slice(0, 2);
+              const p = path.join(localImport, sub, `${fullUuid}.json`);
+              if (!fs.existsSync(p)) {
+                if (!neededMissing.has(base)) {
+                  neededMissing.set(base, { short: u, base, fullUuid, diskPath: p });
+                }
+              }
+            }
+          }
+        });
+      }
+    } catch (_) {}
+  }
+
+  for (const p of activePacks) {
+    scanPrefabDependencies(path.join(localImport, p.slice(0, 2), `${p}.json`));
+  }
+  for (const u of upResourcesConfig.uuids || []) {
+    const base = u.split('@')[0];
+    const decoded = decodeUuid(base);
+    scanPrefabDependencies(path.join(localImport, decoded.slice(0, 2), `${decoded}.json`));
+  }
+
+  if (neededMissing.size > 0) {
+    console.log(`  Found ${neededMissing.size} missing unpacked assets. Scanning local pack bundles to extract...`);
+    let extracted = 0;
+    const packCache = new Map();
+    for (const [base, info] of neededMissing.entries()) {
+      let found = false;
+      function searchPacks(dir) {
+        if (found) return;
+        for (const f of fs.readdirSync(dir)) {
+          if (found) return;
+          const p = path.join(dir, f);
+          const stat = fs.statSync(p);
+          if (stat.isDirectory()) {
+            searchPacks(p);
+          } else if (f.endsWith('.json') && f.length < 20) {
+            let pData = packCache.get(p);
+            if (!pData) {
+              try {
+                pData = JSON.parse(fs.readFileSync(p, 'utf8'));
+                if (Array.isArray(pData) && Array.isArray(pData[5])) {
+                  packCache.set(p, pData);
+                }
+              } catch (_) {}
+            }
+            if (pData && Array.isArray(pData[1])) {
+              const idx = pData[1].indexOf(base);
+              if (idx !== -1 && pData[5][idx]) {
+                const standalone = [pData[0], pData[1], pData[2], pData[3], pData[4], ...pData[5][idx]];
+                fs.mkdirSync(path.dirname(info.diskPath), { recursive: true });
+                fs.writeFileSync(info.diskPath, JSON.stringify(standalone));
+                extracted++;
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+      searchPacks(localImport);
+    }
+    console.log(`  Extracted ${extracted} / ${neededMissing.size} standalone fallback assets.\n`);
+  } else {
+    console.log('  All referenced prefab dependencies are satisfied.\n');
+  }
+
   // 5. Audio compatibility pass (.m4a -> .mp3 in pack JSONs)
   console.log('[5/8] Running audio extension compatibility pass (.m4a -> .mp3)...');
   let filesPatched = 0;
@@ -313,6 +400,28 @@ async function main() {
   if (patchedJs.includes(coldTarget)) {
     patchedJs = patchedJs.replace(coldTarget, coldReplacement);
     console.log('  [+] Applied iceTiles safe check to ColdSnapDragon.');
+  }
+
+  // F. Universal Lane boundary fallback (UpperLane / LowerLane on top and bottom rows)
+  const tUpper = '{key:"UpperLane",get:function(){return this._UpperLane||(this._UpperLane=g.getLane(this.LaneIndex-1)),this._UpperLane}}';
+  const rUpper = '{key:"UpperLane",get:function(){return this._UpperLane||(this._UpperLane=g.getLane(this.LaneIndex-1))||window.__dummyLane}}';
+  if (patchedJs.includes(tUpper)) {
+    patchedJs = patchedJs.replace(tUpper, rUpper);
+    console.log('  [+] Applied UpperLane dummyLane fallback.');
+  }
+
+  const tLower = '{key:"LowerLane",get:function(){return this._LowerLane||(this._LowerLane=g.getLane(this.LaneIndex+1)),this._LowerLane}}';
+  const rLower = '{key:"LowerLane",get:function(){return this._LowerLane||(this._LowerLane=g.getLane(this.LaneIndex+1))||window.__dummyLane}}';
+  if (patchedJs.includes(tLower)) {
+    patchedJs = patchedJs.replace(tLower, rLower);
+    console.log('  [+] Applied LowerLane dummyLane fallback.');
+  }
+
+  const tSquare = 'return-1==e?this.component.laneThere:e==n.LaneCount?this.component.laneHere:e>=0&&e<=n.MaxLaneIndex?this.component.lanesInLawn[e]:this.component.laneAbstract';
+  const rSquare = 'return (-1==e?this.component.laneThere:e==n.LaneCount?this.component.laneHere:e>=0&&e<=n.MaxLaneIndex?this.component.lanesInLawn[e]:this.component.laneAbstract)||window.__dummyLane';
+  if (patchedJs.includes(tSquare)) {
+    patchedJs = patchedJs.replace(tSquare, rSquare);
+    console.log('  [+] Applied Square.getLane dummyLane fallback.');
   }
 
   fs.writeFileSync(path.join(WWW_DIR, 'assets/main/index.js'), patchedJs, 'utf8');
