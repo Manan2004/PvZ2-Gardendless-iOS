@@ -1,6 +1,6 @@
 # Plants vs. Zombies 2: Gardendless (iOS Port)
 
-An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendless** (v0.16.8), packaged using Capacitor and Cocos Creator.
+An iOS and iPadOS port of the fan-made PC game **Plants vs. Zombies 2: Gardendless** (v0.16.26), packaged using Capacitor and Cocos Creator.
 
 ## Download & Installation
 
@@ -39,6 +39,24 @@ You can install the IPA using any standard sideloading tool:
 - **TrollStore** (recommended if your iOS version supports it): Open `PvZ2_Gardendless.ipa` directly in TrollStore and install.
 - **AltStore / SideStore**: Add the downloaded IPA through the **+** button in the My Apps tab.
 - **Sideloadly**: Connect your device to your computer, drag the IPA into Sideloadly, and start installation.
+
+## What's New in v0.16.26 (iOS Port)
+
+- **Upstream v0.16.26 Synchronization**:
+  - Full parity with PC v0.16.26 upstream release.
+  - Added new plant: **Buduh Boom** (`BuduhBoom.ts`).
+  - Synchronized 27 new audio tracks and sound effects with updated sound manifest.
+  - Updated 14 asset pack bundles and 12 standalone/cconb game assets.
+  - Updated 84 engine script chunks with upstream fixes and balance changes.
+  - Native iOS WebKit audio compatibility conversion (guarantees no startup freeze on SFX loading).
+- **Automated Maintainer Toolchain**:
+  - Added `scripts/update-from-upstream.js` for single-command upstream synchronization, automated patch injection, and asset validation.
+  - Added `scripts/build-and-package.sh` for one-command compiling, IPA packaging, exact byte calculation, and AltStore community source updating.
+- **Piñata Party & In-Game Protections**:
+  - Maintained bounds checks and safe error guards on targeting routines across all plants and zombies.
+  - Clean mock implementations for desktop Electron APIs preventing webview errors.
+- **Performance & Features**:
+  - Preserved 120 FPS ProMotion, Auto-Collect, Auto Fast-Forward, and touch optimizations.
 
 ## What's New in v0.16.8 (iOS Port)
 
@@ -113,6 +131,29 @@ This port includes several touch-specific quality-of-life adjustments over the o
    ```bash
    cd ios/App
    xcodebuild -scheme App -configuration Release -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build
+   ```
+
+## Updating from Upstream (For Maintainers)
+
+Upgrading the iOS port to future PC releases is now fully automated with two scripts:
+
+1. **Pull and Adapt Upstream Game Assets:**
+   ```bash
+   node scripts/update-from-upstream.js
+   ```
+   *Automatically checks `play.pvzge.com`, downloads new packs/assets/audio, converts declared `.m4a` to `.mp3` for iOS Safari compatibility, injects performance/touch/crash patches into `index.js`, updates version numbers across `package.json`, `Info.plist`, and `index.html`, and runs `npx cap sync ios`.*
+
+2. **Build and Package the Release IPA:**
+   ```bash
+   ./scripts/build-and-package.sh
+   ```
+   *Builds the Xcode release target, packages `dist/PvZ2_Gardendless.ipa`, calculates exact byte size, and automatically registers the new release inside `apps.json` for AltStore / SideStore.*
+
+3. **Publish to GitHub:**
+   ```bash
+   git add . && git commit -m "Update to upstream v0.X.X"
+   git push origin main
+   gh release create v0.X.X dist/PvZ2_Gardendless.ipa --title "v0.X.X" --notes "Release notes..."
    ```
 
 ## Credits & Disclaimer

@@ -21,6 +21,15 @@
       ],
       "versions": [
         {
+          "version": "0.16.26",
+          "buildVersion": "1626",
+          "date": "2026-11-13",
+          "size": 1202416008,
+          "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.26/PvZ2_Gardendless.ipa",
+          "localizedDescription": "• Synchronized with PC version 0.16.26.\n• Complete touch controls, 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.\n• Stability & crash protections for all plants and zombies.",
+          "minOSVersion": "15.0"
+        },
+        {
           "version": "0.16.8",
           "buildVersion": "168",
           "date": "2026-11-04",
@@ -47,10 +56,10 @@
   ],
   "news": [
     {
-      "title": "PvZ2 Gardendless v0.16.8 Released!",
-      "identifier": "pvz2-gardendless-0-16-8",
-      "caption": "Updated to PC version 0.16.8 with Aqua Vine, crash fixes, and 126 new audio files.",
-      "date": "2026-11-04",
+      "title": "PvZ2 Gardendless v0.16.26 Released!",
+      "identifier": "pvz2-gardendless-0-16-26",
+      "caption": "Updated to PC version 0.16.26 with Buduh Boom, crash fixes, and new audio files.",
+      "date": "2026-11-13",
       "appID": "com.gardendless.pvz2",
       "imageURL": "https://raw.githubusercontent.com/Manan2004/PvZ2-Gardendless-iOS/main/screenshots/icon.png",
       "notify": true

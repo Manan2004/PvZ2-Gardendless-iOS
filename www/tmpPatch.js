@@ -217,6 +217,10 @@ window.electronAPI = {
   loadLevel: path => levelRequest('readonly', store => store.get(path)).then(value => value ?? null),
   removeLevel: path => levelRequest('readwrite', store => store.delete(path)),
   listLevels: () => levelRequest('readonly', store => store.getAllKeys()),
+  checkRemoteUpdate: (lang) => console.log('[UpdateCheck] remote update check invoked for:', lang),
+  openMarkdownWindow: (filePath, title, tag) => window.open('https://github.com/Manan2004/PvZ2-Gardendless-iOS#readme', '_blank'),
+  closeUpdateWindow: () => {},
+  onMusicPackChanged: (callback) => () => {},
 };
 
 // Audio extension compatibility fallback (.m4a <-> .mp3) and version intercept
@@ -230,12 +234,12 @@ window.electronAPI = {
         if (urlStr && urlStr.indexOf('pvzge.com/jsons/gameinfo.json') !== -1) {
           return new Response(JSON.stringify({
             Name: "PvZ2_Prerelease_GitHubLevels",
-            Version: "v0.16.8",
-            InsideVersion: "0.16.8",
+            Version: "v0.16.26",
+            InsideVersion: "0.16.26",
             Updates: [
               {
-                en: "iOS port v0.16.8 up to date.",
-                zh: "iOS 移植版 v0.16.8 已是最新版本。"
+                en: "iOS port v0.16.26 up to date.",
+                zh: "iOS 移植版 v0.16.26 已是最新版本。"
               }
             ]
           }), {
