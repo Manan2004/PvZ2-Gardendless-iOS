@@ -22,11 +22,11 @@
       "versions": [
         {
           "version": "0.16.26",
-          "buildVersion": "1626",
+          "buildVersion": "01626",
           "date": "2026-11-13",
           "size": 1202857494,
           "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.26/PvZ2_Gardendless.ipa",
-          "localizedDescription": "• Synchronized with PC version 0.16.26.\n• Complete touch controls, 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.\n• Stability & crash protections for all plants and zombies.",
+          "localizedDescription": "## Plants vs. Zombies 2: Gardendless iOS v0.16.26\n\nThis release brings full synchronization with the PC upstream release **v0.16.26**, featuring the new plant **Buduh Boom**, updated assets, comprehensive crash & freeze protections, and automated maintenance tooling.\n\n### 📲 AltStore & SideStore Source (Automatic Updates)\nAdd this source to AltStore or SideStore for 1-tap installation and in-app u",
           "minOSVersion": "15.0"
         },
         {
