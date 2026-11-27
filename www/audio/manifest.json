@@ -37,7 +37,7 @@
   "Music_Beach_P4_Start": "Music/Game/Beach/P4_Start_Beach.mp3",
   "Music_Beach_UB": "Music/Game/Beach/UB_Beach.mp3",
   "Music_Beach_VIC": "Music/Game/Beach/VIC_Beach.mp3",
-  "Music_Beach_ZBI": "Music/Game/Beach/ZBI_Beach.mp3",
+  "Music_Beach_ZBI": "Music/Game/Modern/ZBI_Modern.mp3",
   "Music_Cowboy_CYS_LP0": "Music/Game/Cowboy/CYS_LP0_Cowboy.mp3",
   "Music_Cowboy_CYS_LP1": "Music/Game/Cowboy/CYS_LP1_Cowboy.mp3",
   "Music_Cowboy_CYS_Start": "Music/Game/Cowboy/CYS_Start_Cowboy.mp3",
@@ -97,7 +97,7 @@
   "Music_Egypt_P4_Start": "Music/Game/Egypt/P4_Start_Egypt.mp3",
   "Music_Egypt_UB": "Music/Game/Egypt/UB_Egypt.mp3",
   "Music_Egypt_VIC": "Music/Game/Egypt/VIC_Egypt.mp3",
-  "Music_Egypt_ZBI": "Music/Game/Egypt/ZBI_Egypt.mp3",
+  "Music_Egypt_ZBI": "Music/Game/Modern/ZBI_Modern.mp3",
   "Music_Eighties_CYS_LP": "Music/Game/Eighties/CYS_LP_Eighties.mp3",
   "Music_Eighties_CYS_Start": "Music/Game/Eighties/CYS_Start_Eighties.mp3",
   "Music_Eighties_LEAVE": "Music/Game/Eighties/LEAVE_Eighties.mp3",
@@ -119,7 +119,7 @@
   "Music_Future_VIC": "Music/Game/Future/VIC_Future.mp3",
   "Music_Future_ZBI": "Music/Game/Future/ZBI_Future.mp3",
   "Music_Iceage_CYS_LP": "Music/Game/Iceage/CYS_LP_Iceage.mp3",
-  "Music_Iceage_CYS_Start": "Music/Game/Iceage/CYS_Start_Iceage.mp3",
+  "Music_Iceage_CYS_Start": "Music/Game/Iceage/P4_Start_Iceage.mp3",
   "Music_Iceage_LEAVE": "Music/Game/Iceage/LEAVE_Iceage.mp3",
   "Music_Iceage_LOSE": "Music/Game/Iceage/LOSE_Iceage.mp3",
   "Music_Iceage_MG": "Music/Game/Iceage/MG_Iceage.mp3",
@@ -259,23 +259,61 @@
   "Music_Pinata_SenorLoop": "Music/Pinata/SenorLoop.mp3",
   "Music_Pinata_SenorOutro": "Music/Pinata/SenorOutro.mp3",
   "Plant_Burn": "Sounds/Plants/Burn.mp3",
+  "Plant_ShineVine_Attack": "51/5141b41694a7bb53.mp3",
+  "Plant_ShineVine_Electric": "9a/9aa851234ca88fd1.mp3",
+  "Plant_ShineVine_Water": "70/70546042645acb94.mp3",
+  "Plant_ShineVine_Produce": "fe/fe0cba258415a449.mp3",
+  "Plant_BonkChoy_AttackAir": "e7/e77353042afb266e.mp3",
+  "Plant_BonkChoy_AttackOn": "ed/ed340a9fcc521beb.mp3",
+  "Plant_BonkChoy_Defeat": "ab/ab03d384f37bb8e2.mp3",
   "Plant_KernelPult_Butter": "0c/d770604d9e61597c.mp3",
   "Plant_CherryBomb_Explode": "98/a359d34c46aa6979.mp3",
-  "Plant_EMPeach_Spark0": "8f/ee4a37765032bc91.mp3",
-  "Plant_EMPeach_Spark1": "3d/cde3c4161f3d2a09.mp3",
-  "Plant_EMPeach_Spark2": "32/d8cda3cd1f64cc3a.mp3",
-  "Plant_EMPeach_Spark3": "3c/73298386d3cc07f7.mp3",
-  "Plant_EMPeach_Spark4": "1d/032d8d45e3bd122a.mp3",
+  "Plant_EMPeach_Spark": [
+    "8f/ee4a37765032bc91.mp3",
+    "3d/cde3c4161f3d2a09.mp3",
+    "32/d8cda3cd1f64cc3a.mp3",
+    "3c/73298386d3cc07f7.mp3",
+    "1d/032d8d45e3bd122a.mp3"
+  ],
   "Plant_ChiliBean_Fart": "c0/f848b7f0baecc450.mp3",
   "Plant_PotatoMineExplode": "3d/a359d34c46aa6979.mp3",
-  "Plant_Moonflower_Shadow_0": "44/353d3528232d5a84.mp3",
-  "Plant_Moonflower_Shadow_1": "b9/8ba3be1da3ec9ffe.mp3",
-  "Plant_Moonflower_Shadow_2": "93/0592e10b299d9bb1.mp3",
-  "Tomb_IceBlock_Spawn0": "cf/488822fb974f9a39.mp3",
-  "Tomb_IceBlock_Spawn1": "d7/fd108c557308ab57.mp3",
-  "Tomb_Break0": "e1/5270f6a0accc1e20.mp3",
-  "Tomb_Break1": "d0/e6b2d1960f1ff41b.mp3",
+  "Plant_Moonflower_Shadow": [
+    "44/353d3528232d5a84.mp3",
+    "b9/8ba3be1da3ec9ffe.mp3",
+    "93/0592e10b299d9bb1.mp3"
+  ],
+  "Plant_ZoybeanPod_Grow0": "43/436673270d1a7609.mp3",
+  "Plant_ZoybeanPod_Grow1": "83/83d10ea95d75061c.mp3",
+  "Plant_ZoybeanPod_Grow2": "2f/2f2dd792388c993d.mp3",
+  "Plant_ZoybeanPod_Grow3": "1f/1f59a75d0594fb65.mp3",
+  "Plant_ZoybeanPod_Water": "cd/cd836470d1c9230f.mp3",
+  "Plant_ZoybeanPod_Splat": "62/6272bbb7b6c83d48.mp3",
+  "Plant_ZoybeanPod_Garg_Say": [
+    "c4/c4234dfb096c1762.mp3",
+    "35/35e051c5aa2894f7.mp3",
+    "93/936aa48c0a7a9328.mp3"
+  ],
+  "Plant_ZoybeanPod_Garg_Smash": [
+    "e7/e758f666a3da6964.mp3",
+    "3e/3e614ad558667554.mp3",
+    "21/21c8142f143ea586.mp3"
+  ],
+  "Plant_ZoybeanPod_Garg_Swing": [
+    "43/43c942d86784e412.mp3",
+    "1a/1a44af909df4b806.mp3",
+    "8c/8cf94f6405c7258b.mp3",
+    "a3/a3799f2f10537f39.mp3"
+  ],
+  "Tomb_IceBlock_Spawn": [
+    "cf/488822fb974f9a39.mp3",
+    "d7/fd108c557308ab57.mp3"
+  ],
+  "Tomb_Break": [
+    "e1/5270f6a0accc1e20.mp3",
+    "d0/e6b2d1960f1ff41b.mp3"
+  ],
   "Tomb_RiseHeavy": "a3/412b51169b60ea30.mp3",
+  "Tomb_KongfuRack_Destroy": "09/09c16b7e8d4ffa9e.mp3",
   "Mower_Egypt_Attack": "50/dda0342353d2270f.mp3",
   "Mower_Pirate_Attack": "59/55921be2226bb322.mp3",
   "Mower_Cowboy_Attack": "53/eb5f65a8d35cf770.mp3",
@@ -292,185 +330,720 @@
   "Zombie_Garg_Pop_Out": "Sounds/Zombies/Garg_Pop_Out.mp3",
   "Zombie_Shock": "Sounds/Zombies/Shock.mp3",
   "Zombie_LimbPop": "Sounds/Zombies/LimbPop.mp3",
-  "Zombie_Fall0": "Sounds/Zombies/Fall0.mp3",
-  "Zombie_Fall1": "Sounds/Zombies/Fall1.mp3",
-  "Zombie_Fall2": "Sounds/Zombies/Fall2.mp3",
-  "Zombie_Fall3": "Sounds/Zombies/Fall3.mp3",
-  "Zombie_ConeHit0": "61/1625955f07a60dc5.mp3",
-  "Zombie_ConeHit1": "0b/ae9cb6f29f7fe38b.mp3",
-  "Zombie_BucketHit0": "ff/b40d54fb8709587d.mp3",
-  "Zombie_BucketHit1": "da/5f5487ddd6d70639.mp3",
+  "Zombie_Fall": [
+    "Sounds/Zombies/Fall0.mp3",
+    "Sounds/Zombies/Fall1.mp3",
+    "Sounds/Zombies/Fall2.mp3",
+    "Sounds/Zombies/Fall3.mp3"
+  ],
+  "Zombie_ConeHit": [
+    "61/1625955f07a60dc5.mp3",
+    "0b/ae9cb6f29f7fe38b.mp3"
+  ],
+  "Zombie_BucketHit": [
+    "ff/b40d54fb8709587d.mp3",
+    "da/5f5487ddd6d70639.mp3"
+  ],
   "Zombie_Gulp": "Sounds/Zombies/Gulp.mp3",
-  "Zombie_Chew0": "Sounds/Zombies/Chew0.mp3",
-  "Zombie_Chew1": "Sounds/Zombies/Chew1.mp3",
-  "Zombie_Beach_Basic_Groan0": "Sounds/Zombies/Beach/Basic/Groan0.mp3",
-  "Zombie_Beach_Basic_Groan1": "Sounds/Zombies/Beach/Basic/Groan1.mp3",
-  "Zombie_Beach_Basic_Groan2": "Sounds/Zombies/Beach/Basic/Groan2.mp3",
-  "Zombie_Beach_Basic_Groan3": "Sounds/Zombies/Beach/Basic/Groan3.mp3",
-  "Zombie_Beach_Basic_Groan4": "Sounds/Zombies/Beach/Basic/Groan4.mp3",
-  "Zombie_Beach_Basic_Groan5": "Sounds/Zombies/Beach/Basic/Groan5.mp3",
-  "Zombie_Beach_Basic_Groan6": "Sounds/Zombies/Beach/Basic/Groan6.mp3",
-  "Zombie_Beach_Basic_Groan7": "Sounds/Zombies/Beach/Basic/Groan7.mp3",
-  "Zombie_Beach_Basic_Groan8": "Sounds/Zombies/Beach/Basic/Groan8.mp3",
-  "Zombie_Beach_Basic_Groan9": "Sounds/Zombies/Beach/Basic/Groan9.mp3",
-  "Zombie_Beach_Basic_Groan10": "Sounds/Zombies/Beach/Basic/Groan10.mp3",
-  "Zombie_Beach_Basic_Groan11": "Sounds/Zombies/Beach/Basic/Groan11.mp3",
-  "Zombie_Beach_Basic_Groan12": "Sounds/Zombies/Beach/Basic/Groan12.mp3",
-  "Zombie_Beach_Basic_Groan13": "Sounds/Zombies/Beach/Basic/Groan13.mp3",
-  "Zombie_Beach_Basic_Groan14": "Sounds/Zombies/Beach/Basic/Groan14.mp3",
-  "Zombie_Beach_Basic_Groan15": "Sounds/Zombies/Beach/Basic/Groan15.mp3",
-  "Zombie_Beach_Basic_Groan16": "Sounds/Zombies/Beach/Basic/Groan16.mp3",
-  "Zombie_Beach_Basic_Groan17": "Sounds/Zombies/Beach/Basic/Groan17.mp3",
-  "Zombie_Beach_Basic_Groan18": "Sounds/Zombies/Beach/Basic/Groan18.mp3",
-  "Zombie_Beach_Basic_Groan19": "Sounds/Zombies/Beach/Basic/Groan19.mp3",
-  "Zombie_Beach_Basic_Groan20": "Sounds/Zombies/Beach/Basic/Groan20.mp3",
-  "Zombie_Beach_Basic_Groan21": "Sounds/Zombies/Beach/Basic/Groan21.mp3",
-  "Zombie_Beach_Basic_Groan22": "Sounds/Zombies/Beach/Basic/Groan22.mp3",
-  "Zombie_Cowboy_Basic_Groan0": "Sounds/Zombies/Cowboy/Basic/Groan0.mp3",
-  "Zombie_Cowboy_Basic_Groan1": "Sounds/Zombies/Cowboy/Basic/Groan1.mp3",
-  "Zombie_Cowboy_Basic_Groan2": "Sounds/Zombies/Cowboy/Basic/Groan2.mp3",
-  "Zombie_Cowboy_Basic_Groan3": "Sounds/Zombies/Cowboy/Basic/Groan3.mp3",
-  "Zombie_Cowboy_Basic_Groan4": "Sounds/Zombies/Cowboy/Basic/Groan4.mp3",
-  "Zombie_Cowboy_Basic_Groan5": "Sounds/Zombies/Cowboy/Basic/Groan5.mp3",
-  "Zombie_Cowboy_Basic_Groan6": "Sounds/Zombies/Cowboy/Basic/Groan6.mp3",
-  "Zombie_Cowboy_Basic_Groan7": "Sounds/Zombies/Cowboy/Basic/Groan7.mp3",
-  "Zombie_Cowboy_Basic_Groan8": "Sounds/Zombies/Cowboy/Basic/Groan8.mp3",
-  "Zombie_Cowboy_Basic_Groan9": "Sounds/Zombies/Cowboy/Basic/Groan9.mp3",
-  "Zombie_Cowboy_Basic_Groan10": "Sounds/Zombies/Cowboy/Basic/Groan10.mp3",
-  "Zombie_Cowboy_Basic_Groan11": "Sounds/Zombies/Cowboy/Basic/Groan11.mp3",
-  "Zombie_Cowboy_Basic_Groan12": "Sounds/Zombies/Cowboy/Basic/Groan12.mp3",
-  "Zombie_Cowboy_Basic_Groan13": "Sounds/Zombies/Cowboy/Basic/Groan13.mp3",
-  "Zombie_Cowboy_Basic_Groan14": "Sounds/Zombies/Cowboy/Basic/Groan14.mp3",
-  "Zombie_Cowboy_Basic_Groan15": "Sounds/Zombies/Cowboy/Basic/Groan15.mp3",
-  "Zombie_Dark_Basic_Groan0": "Sounds/Zombies/Dark/Basic/Groan0.mp3",
-  "Zombie_Dark_Basic_Groan1": "Sounds/Zombies/Dark/Basic/Groan1.mp3",
-  "Zombie_Dark_Basic_Groan2": "Sounds/Zombies/Dark/Basic/Groan2.mp3",
-  "Zombie_Dark_Basic_Groan3": "Sounds/Zombies/Dark/Basic/Groan3.mp3",
-  "Zombie_Dark_Basic_Groan4": "Sounds/Zombies/Dark/Basic/Groan4.mp3",
-  "Zombie_Dark_Basic_Groan5": "Sounds/Zombies/Dark/Basic/Groan5.mp3",
-  "Zombie_Dark_Basic_Groan6": "Sounds/Zombies/Dark/Basic/Groan6.mp3",
-  "Zombie_Dark_Basic_Groan7": "Sounds/Zombies/Dark/Basic/Groan7.mp3",
-  "Zombie_Dark_Basic_Groan8": "Sounds/Zombies/Dark/Basic/Groan8.mp3",
-  "Zombie_Dark_Basic_Groan9": "Sounds/Zombies/Dark/Basic/Groan9.mp3",
-  "Zombie_Dark_Basic_Groan10": "Sounds/Zombies/Dark/Basic/Groan10.mp3",
-  "Zombie_Dark_Basic_Groan11": "Sounds/Zombies/Dark/Basic/Groan11.mp3",
-  "Zombie_Dark_Basic_Groan12": "Sounds/Zombies/Dark/Basic/Groan12.mp3",
-  "Zombie_Dark_Basic_Groan13": "Sounds/Zombies/Dark/Basic/Groan13.mp3",
-  "Zombie_Dark_Basic_Groan14": "Sounds/Zombies/Dark/Basic/Groan14.mp3",
-  "Zombie_Dark_Basic_Groan15": "Sounds/Zombies/Dark/Basic/Groan15.mp3",
-  "Zombie_Dark_Basic_Groan16": "Sounds/Zombies/Dark/Basic/Groan16.mp3",
-  "Zombie_Dark_Basic_Groan17": "Sounds/Zombies/Dark/Basic/Groan17.mp3",
-  "Zombie_Dark_Basic_Groan18": "Sounds/Zombies/Dark/Basic/Groan18.mp3",
-  "Zombie_Dark_Basic_Groan19": "Sounds/Zombies/Dark/Basic/Groan19.mp3",
-  "Zombie_Dark_Basic_Groan20": "Sounds/Zombies/Dark/Basic/Groan20.mp3",
-  "Zombie_Dino_Basic_Groan0": "Sounds/Zombies/Dino/Basic/Groan0.mp3",
-  "Zombie_Dino_Basic_Groan1": "Sounds/Zombies/Dino/Basic/Groan1.mp3",
-  "Zombie_Dino_Basic_Groan2": "Sounds/Zombies/Dino/Basic/Groan2.mp3",
-  "Zombie_Dino_Basic_Groan3": "Sounds/Zombies/Dino/Basic/Groan3.mp3",
-  "Zombie_Dino_Basic_Groan4": "Sounds/Zombies/Dino/Basic/Groan4.mp3",
-  "Zombie_Dino_Basic_Groan5": "Sounds/Zombies/Dino/Basic/Groan5.mp3",
-  "Zombie_Dino_Basic_Groan6": "Sounds/Zombies/Dino/Basic/Groan6.mp3",
-  "Zombie_Dino_Basic_Groan7": "Sounds/Zombies/Dino/Basic/Groan7.mp3",
-  "Zombie_Dino_Basic_Groan8": "Sounds/Zombies/Dino/Basic/Groan8.mp3",
-  "Zombie_Dino_Basic_Groan9": "Sounds/Zombies/Dino/Basic/Groan9.mp3",
-  "Zombie_Dino_Basic_Groan10": "Sounds/Zombies/Dino/Basic/Groan10.mp3",
-  "Zombie_Dino_Basic_Groan11": "Sounds/Zombies/Dino/Basic/Groan11.mp3",
-  "Zombie_Dino_Basic_Groan12": "Sounds/Zombies/Dino/Basic/Groan12.mp3",
-  "Zombie_Dino_Basic_Groan13": "Sounds/Zombies/Dino/Basic/Groan13.mp3",
-  "Zombie_Dino_Basic_Groan14": "Sounds/Zombies/Dino/Basic/Groan14.mp3",
-  "Zombie_Dino_Basic_Groan15": "Sounds/Zombies/Dino/Basic/Groan15.mp3",
-  "Zombie_Dino_Basic_Groan16": "Sounds/Zombies/Dino/Basic/Groan16.mp3",
-  "Zombie_Dino_Basic_Groan17": "Sounds/Zombies/Dino/Basic/Groan17.mp3",
-  "Zombie_Dino_Basic_Groan18": "Sounds/Zombies/Dino/Basic/Groan18.mp3",
-  "Zombie_Egypt_Basic_Groan0": "Sounds/Zombies/Egypt/Basic/Groan0.mp3",
-  "Zombie_Egypt_Basic_Groan1": "Sounds/Zombies/Egypt/Basic/Groan1.mp3",
-  "Zombie_Egypt_Basic_Groan2": "Sounds/Zombies/Egypt/Basic/Groan2.mp3",
-  "Zombie_Egypt_Basic_Groan3": "Sounds/Zombies/Egypt/Basic/Groan3.mp3",
-  "Zombie_Egypt_Basic_Groan4": "Sounds/Zombies/Egypt/Basic/Groan4.mp3",
-  "Zombie_Egypt_Basic_Groan5": "Sounds/Zombies/Egypt/Basic/Groan5.mp3",
-  "Zombie_Egypt_Basic_Groan6": "Sounds/Zombies/Egypt/Basic/Groan6.mp3",
-  "Zombie_Egypt_Basic_Groan7": "Sounds/Zombies/Egypt/Basic/Groan7.mp3",
-  "Zombie_Egypt_Basic_Groan8": "Sounds/Zombies/Egypt/Basic/Groan8.mp3",
-  "Zombie_Egypt_Basic_Groan9": "Sounds/Zombies/Egypt/Basic/Groan9.mp3",
-  "Zombie_Future_Basic_Groan0": "Sounds/Zombies/Future/Basic/Groan0.mp3",
-  "Zombie_Future_Basic_Groan1": "Sounds/Zombies/Future/Basic/Groan1.mp3",
-  "Zombie_Future_Basic_Groan2": "Sounds/Zombies/Future/Basic/Groan2.mp3",
-  "Zombie_Future_Basic_Groan3": "Sounds/Zombies/Future/Basic/Groan3.mp3",
-  "Zombie_Future_Basic_Groan4": "Sounds/Zombies/Future/Basic/Groan4.mp3",
-  "Zombie_Future_Basic_Groan5": "Sounds/Zombies/Future/Basic/Groan5.mp3",
-  "Zombie_Future_Basic_Groan6": "Sounds/Zombies/Future/Basic/Groan6.mp3",
-  "Zombie_Future_Basic_Groan7": "Sounds/Zombies/Future/Basic/Groan7.mp3",
-  "Zombie_Future_Basic_Groan8": "Sounds/Zombies/Future/Basic/Groan8.mp3",
-  "Zombie_Future_Basic_Groan9": "Sounds/Zombies/Future/Basic/Groan9.mp3",
-  "Zombie_Iceage_Basic_Groan0": "Sounds/Zombies/Iceage/Basic/Groan0.mp3",
-  "Zombie_Iceage_Basic_Groan1": "Sounds/Zombies/Iceage/Basic/Groan1.mp3",
-  "Zombie_Iceage_Basic_Groan2": "Sounds/Zombies/Iceage/Basic/Groan2.mp3",
-  "Zombie_Iceage_Basic_Groan3": "Sounds/Zombies/Iceage/Basic/Groan3.mp3",
-  "Zombie_Iceage_Basic_Groan4": "Sounds/Zombies/Iceage/Basic/Groan4.mp3",
-  "Zombie_Iceage_Basic_Groan5": "Sounds/Zombies/Iceage/Basic/Groan5.mp3",
-  "Zombie_Iceage_Basic_Groan6": "Sounds/Zombies/Iceage/Basic/Groan6.mp3",
-  "Zombie_Kongfu_Basic_Groan0": "Sounds/Zombies/Kongfu/Basic/Groan0.mp3",
-  "Zombie_Kongfu_Basic_Groan1": "Sounds/Zombies/Kongfu/Basic/Groan1.mp3",
-  "Zombie_Kongfu_Basic_Groan2": "Sounds/Zombies/Kongfu/Basic/Groan2.mp3",
-  "Zombie_Kongfu_Basic_Groan3": "Sounds/Zombies/Kongfu/Basic/Groan3.mp3",
-  "Zombie_Kongfu_Basic_Groan4": "Sounds/Zombies/Kongfu/Basic/Groan4.mp3",
-  "Zombie_Kongfu_Basic_Groan5": "Sounds/Zombies/Kongfu/Basic/Groan5.mp3",
+  "Zombie_Chew": [
+    "Sounds/Zombies/Chew0.mp3",
+    "Sounds/Zombies/Chew1.mp3"
+  ],
+  "Zombie_Beach_Basic_Groan": [
+    "Sounds/Zombies/Beach/Basic/Groan0.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan1.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan2.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan3.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan4.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan5.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan6.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan7.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan8.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan9.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan10.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan11.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan12.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan13.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan14.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan15.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan16.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan17.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan18.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan19.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan20.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan21.mp3",
+    "Sounds/Zombies/Beach/Basic/Groan22.mp3"
+  ],
+  "Zombie_Beach_Gargantuar_Step": [
+    "a2/a2655075b4b39249.mp3",
+    "fa/fae52acd31cd537b.mp3",
+    "7c/7c3b61998523d87f.mp3",
+    "fa/fa7ce8b68832253e.mp3"
+  ],
+  "Zombie_Beach_Gargantuar_DeathFall": [
+    "a6/a6ff858ab3e0d70a.mp3",
+    "87/8798a00652ada281.mp3"
+  ],
+  "Zombie_Cowboy_Basic_Groan": [
+    "Sounds/Zombies/Pirate/Basic/Groan0.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan1.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan2.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan3.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan3.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan5.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan6.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan7.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan8.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan9.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan10.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan9.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan12.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan11.mp3",
+    "Sounds/Zombies/Cowboy/Basic/Groan14.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan13.mp3"
+  ],
+  "Zombie_Cowboy_Gargantuar_DeathFall": [
+    "e4/e4aeb5afc0d696ea.mp3",
+    "1c/1c387b7aabc1df83.mp3"
+  ],
+  "Zombie_Cowboy_Gargantuar_DeathPole": [
+    "88/882308b9e17e9660.mp3",
+    "3c/3c8188351eb30b15.mp3"
+  ],
+  "Zombie_Cowboy_Gargantuar_Smash": [
+    "a1/a1260f8d0be2c113.mp3",
+    "23/232df17f0b46078f.mp3",
+    "9e/9ebd90e198ac3e85.mp3"
+  ],
+  "Zombie_Cowboy_Gargantuar_Step": [
+    "43/43e046b2be87c7b2.mp3",
+    "70/702d1e3155a93949.mp3",
+    "7d/7d5f5044e2779103.mp3",
+    "53/53bc30f8884241a3.mp3"
+  ],
+  "Zombie_Dark_Basic_Groan": [
+    "Sounds/Zombies/Dark/Basic/Groan0.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan1.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan2.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan3.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan4.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan5.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan6.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan7.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan8.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan9.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan10.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan11.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan12.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan13.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan14.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan15.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan16.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan17.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan18.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan19.mp3",
+    "Sounds/Zombies/Dark/Basic/Groan20.mp3"
+  ],
+  "Zombie_Dark_Gargantuar_Hit": "34/341bb28176501536.mp3",
+  "Zombie_Dark_Gargantuar_Smash": [
+    "13/13bce325055736a2.mp3",
+    "f1/f1046a0857e5c785.mp3",
+    "f0/f048ea2bb3de197e.mp3"
+  ],
+  "Zombie_Dino_Basic_Groan": [
+    "Sounds/Zombies/Dino/Basic/Groan0.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan1.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan2.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan3.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan4.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan5.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan6.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan7.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan8.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan9.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan10.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan11.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan12.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan13.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan14.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan15.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan16.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan17.mp3",
+    "Sounds/Zombies/Dino/Basic/Groan18.mp3"
+  ],
+  "Zombie_Dino_Gargantuar_Smash": "56/5667952c401594a8.mp3",
+  "Zombie_Egypt_Basic_Groan": [
+    "Sounds/Zombies/Future/Basic/Groan4.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan1.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan2.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan3.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan4.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan5.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan6.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan7.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan8.mp3",
+    "Sounds/Zombies/Egypt/Basic/Groan9.mp3"
+  ],
+  "Zombie_Egypt_Ra_Groan": [
+    "6c/6ca9181918be09ea.mp3",
+    "13/138666cf97995975.mp3",
+    "53/5360e3df23cfa5b8.mp3"
+  ],
+  "Zombie_Egypt_TombRaiser_Throw": "b9/b9a01b5d2ab0cb56.mp3",
+  "Zombie_Egypt_TombRaiser_Puke": "d2/d22a6c8f7d4512c1.mp3",
+  "Zombie_Egypt_Ra_Death": "a7/a7cc651dca87e2c2.mp3",
+  "Zombie_Egypt_Ra_Absorb": [
+    "28/287df005b328e7c1.mp3",
+    "11/118f14f6251b0360.mp3"
+  ],
+  "Zombie_Egypt_Ra_AbsorbBG": "50/500e911d73d7a43a.mp3",
+  "Zombie_Egypt_Pharaoh_Groan": [
+    "e0/e0ec96d583c1ff39.mp3",
+    "d9/d9389631713896db.mp3"
+  ],
+  "Zombie_Egypt_Pharaoh_Break": [
+    "e1/5270f6a0accc1e20.mp3",
+    "d0/e6b2d1960f1ff41b.mp3"
+  ],
+  "Zombie_Egypt_Pharaoh_Hit": [
+    "99/99ab4b1425ed2bcf.mp3",
+    "8c/8cee299992dc25d8.mp3",
+    "5e/5e1e7af32cce0a7c.mp3"
+  ],
+  "Zombie_Egypt_Camel_Break": [
+    "7d/7d00e6d9bb1f3b4a.mp3",
+    "6e/6eec6562ffa7c0ac.mp3",
+    "c7/c761f6eb6ee2de94.mp3"
+  ],
+  "Zombie_Egypt_Camel_Hit": [
+    "71/71be8ad2a612ec50.mp3",
+    "b8/b8ba61d85ea6adf2.mp3",
+    "d8/d87e351344cf240f.mp3"
+  ],
+  "Zombie_Egypt_Camel_DeathSpawn": [
+    "73/73f1d825efc3a8b0.mp3",
+    "a3/a3c958352f0d2534.mp3",
+    "c5/c55707b15c7608a5.mp3",
+    "74/748e450af1f28a9b.mp3"
+  ],
+  "Zombie_Egypt_Camel_Flip": "14/14815ad969c0435f.mp3",
+  "Zombie_Egypt_Camel_Match": "d5/d504195a21390337.mp3",
+  "Zombie_Egypt_Gargantuar_Step": [
+    "55/554281085365fc96.mp3",
+    "1d/1dddabefd10c8288.mp3",
+    "aa/aafa5cb9be2ee1fc.mp3",
+    "43/433ff4389eefff00.mp3"
+  ],
+  "Zombie_Egypt_Gargantuar_Smash": "46/46bf5dbb7d611afa.mp3",
+  "Zombie_Egypt_Gargantuar_DeathPole": [
+    "34/342792ad199d93bc.mp3",
+    "01/012c73498895c371.mp3"
+  ],
+  "Zombie_Egypt_Gargantuar_DeathFall": [
+    "ef/ef00f6cfce0450d0.mp3",
+    "1c/1c3d857454cf4c75.mp3"
+  ],
+  "Zombie_Easter_Gargantuar_StepAdd": [
+    "47/47f13c992830d92a.mp3",
+    "c0/c02fa74c3233c147.mp3",
+    "3f/3f39ed61546aa481.mp3",
+    "ad/adf8c669eb043956.mp3",
+    "42/421fb2e6290db630.mp3"
+  ],
+  "Zombie_Eighties_Gargantuar_Smash": "cf/cf5ba069d1499fc6.mp3",
+  "Zombie_Eighties_Gargantuar_GuitarSmash": [
+    "1e/1e767543a5ddcb15.mp3",
+    "90/909036eca8899e9c.mp3",
+    "3c/3c5a74f33e679dac.mp3",
+    "f1/f11c10138b961b94.mp3",
+    "5e/5e827925b5ddf876.mp3",
+    "7c/7ccd3e16a0ad7b33.mp3"
+  ],
+  "Zombie_Eighties_Gargantuar_GuitarSwing": [
+    "1e/1e8de98db0224367.mp3",
+    "22/22ba4dd0776906b7.mp3",
+    "9b/9b15844b6d22abbe.mp3",
+    "da/da3111ec00b39e1a.mp3",
+    "d2/d27ea8a74d0a0d0d.mp3",
+    "61/612a5385fdae31d4.mp3",
+    "42/42a16bacf1479c58.mp3"
+  ],
+  "Zombie_Eighties_8bit_Chew": "60/60a9c687fc74b7a0.mp3",
+  "Zombie_Eighties_8bit_DeathSay": "00/00073c473233dade.mp3",
+  "Zombie_Eighties_8bit_HeadDrop": "70/707b6666d35956a3.mp3",
+  "Zombie_Eighties_8bit_Lie": "2f/2fb73d7c75301de5.mp3",
+  "Zombie_Eighties_8bit_Spawn": "2a/2afa706222e4796f.mp3",
+  "Zombie_Eighties_8bit_Hurt": [
+    "2f/2f7f921b237692f1.mp3",
+    "ee/ee191fbd96afc952.mp3",
+    "db/dbb29a666ca6668b.mp3"
+  ],
+  "Zombie_Eighties_8bit_Groan": [
+    "91/910ac8d2e11a4086.mp3",
+    "6b/6bb147820f658b7c.mp3",
+    "61/613bb68bf86e3669.mp3",
+    "f2/f2861cd0ccc15d31.mp3",
+    "db/db1d5b97553f9fd1.mp3"
+  ],
+  "Zombie_Sky_Gargantuar_FanLoop": "6d/6d72ac68557bf7ba.mp3",
+  "Zombie_Sky_Gargantuar_DrillOn": "47/47c97a23d9bf4ddb.mp3",
+  "Zombie_Sky_Gargantuar_DrillOff": "08/088a297b9b53d3c8.mp3",
+  "Zombie_Sky_Gargantuar_DrillOpen": "f3/f3779a6138d44b76.mp3",
+  "Zombie_Sky_Gargantuar_DrillLoop": "12/12fdd010684b3d5b.mp3",
+  "Zombie_Sky_Gargantuar_DrillAway": "52/52f8588e6cfd09a9.mp3",
+  "Zombie_Future_Basic_Groan": [
+    "Sounds/Zombies/Future/Basic/Groan0.mp3",
+    "Sounds/Zombies/Future/Basic/Groan1.mp3",
+    "Sounds/Zombies/Future/Basic/Groan2.mp3",
+    "Sounds/Zombies/Future/Basic/Groan3.mp3",
+    "Sounds/Zombies/Future/Basic/Groan4.mp3",
+    "Sounds/Zombies/Future/Basic/Groan5.mp3",
+    "Sounds/Zombies/Future/Basic/Groan6.mp3",
+    "Sounds/Zombies/Future/Basic/Groan7.mp3",
+    "Sounds/Zombies/Future/Basic/Groan8.mp3",
+    "Sounds/Zombies/Future/Basic/Groan9.mp3"
+  ],
+  "Zombie_Future_Gargantuar_Activate": "13/13b9db8344b16dd0.mp3",
+  "Zombie_Future_Gargantuar_Deactivate": "7a/7aeb126e7fcfcd06.mp3",
+  "Zombie_Future_Gargantuar_Death": "97/97ca89e2b9d455c4.mp3",
+  "Zombie_Future_Gargantuar_RayStart": "84/84b9920d65422ea7.mp3",
+  "Zombie_Future_Gargantuar_RayLoop": "a2/a234b600584f16fc.mp3",
+  "Zombie_Future_Gargantuar_RayEnd": "77/77cba829f06f5d87.mp3",
+  "Zombie_Future_Gargantuar_Rise": "e3/e351f6456d45aa09.mp3",
+  "Zombie_Future_Gargantuar_ShootStart": "04/04e5e5c556e00191.mp3",
+  "Zombie_Future_Gargantuar_ShootEnd": "97/974259fd87dbb308.mp3",
+  "Zombie_Future_Gargantuar_Throw": "7a/7ad1559f0a4e6f8a.mp3",
+  "Zombie_Future_Gargantuar_ThrowPrepare": "c9/c9a30a1de4ba5095.mp3",
+  "Zombie_Future_Gargantuar_Say": [
+    "3f/3f9e556d43b23f24.mp3",
+    "04/0439494e1252fd1f.mp3",
+    "3f/3fb6a0bf07f7cecf.mp3",
+    "f7/f783c71e01fb8221.mp3",
+    "31/319470fdc4c8ff57.mp3",
+    "0f/0fcbf675f416ebaa.mp3",
+    "ce/ce60763d344024a3.mp3",
+    "33/333ffa0c51b14571.mp3"
+  ],
+  "Zombie_Future_Gargantuar_Step": [
+    "0c/0c32eefa6c2d0700.mp3",
+    "99/99bf726eb074f624.mp3",
+    "85/851826fb0455ab99.mp3",
+    "6c/6ccd8698b6c0594e.mp3"
+  ],
+  "Zombie_Future_Gargantuar_StepRise": [
+    "fc/fcd1ff91e0b21198.mp3",
+    "70/70793c430504cb89.mp3",
+    "86/867f664e58e8acb5.mp3",
+    "a9/a9e42ebbc52062f0.mp3"
+  ],
+  "Zombie_Future_Gargantuar_Smash": [
+    "6e/6e43f297b05648bd.mp3",
+    "d0/d02fbbce07188b16.mp3"
+  ],
+  "Zombie_Future_Imp_Activate": "26/266e312b31c5ae46.mp3",
+  "Zombie_Future_Imp_Deactivate": "ef/ef8f51d5c46e11bc.mp3",
+  "Zombie_Future_Imp_Death": "03/03f01cd4de7845a1.mp3",
+  "Zombie_Future_Imp_Eat": [
+    "ae/ae92adc51052e806.mp3",
+    "f6/f678633ec6f3a63e.mp3",
+    "05/0544b2b7fc0bdc83.mp3"
+  ],
+  "Zombie_Future_Imp_Hop": [
+    "5d/5d572a40c1c1a261.mp3",
+    "2d/2d87d1c3119b9295.mp3",
+    "f5/f5ee4627497eb903.mp3"
+  ],
+  "Zombie_Future_Imp_Expand": "f1/f16c8905fc310ac6.mp3",
+  "Zombie_Future_Imp_Fall": "05/05f4ec65cf052927.mp3",
+  "Zombie_Future_Imp_Land": "83/83a7d3b53eaca2b5.mp3",
+  "Zombie_Future_Imp_MouthHitActivate": "08/08362eeddbda80b9.mp3",
+  "Zombie_Future_Imp_MouthHitDeactivate": "55/55d91d0ad9bbe0d7.mp3",
+  "Zombie_Future_MechFootball_Activate": "a7/a7f32111610615e7.mp3",
+  "Zombie_Future_MechFootball_Deactivate": "fb/fbdef6273723733f.mp3",
+  "Zombie_Future_MechFootball_Death": "1e/1eb2f4b335601816.mp3",
+  "Zombie_Future_MechFootball_Push": [
+    "90/90d8c5f4ad25fdf6.mp3",
+    "09/09a0799e7ef578d8.mp3",
+    "8c/8c91530fff79d6bf.mp3",
+    "2e/2e977e9d919746f3.mp3"
+  ],
+  "Zombie_Future_MechFootball_Step": [
+    "a8/a82a4e3c1311a8b5.mp3",
+    "b6/b6652e090b201ada.mp3",
+    "9b/9bc9b6bd2ab09698.mp3",
+    "6a/6a80911870a39469.mp3"
+  ],
+  "Zombie_Future_MechCone_Activate": "4d/4d2b7b531991ff26.mp3",
+  "Zombie_Future_MechCone_Deactivate": "4f/4f790da069740c5d.mp3",
+  "Zombie_Future_MechCone_ArmBack": "56/569a6c4a025cbd9f.mp3",
+  "Zombie_Future_MechCone_Curve": [
+    "f2/f2c619ad49ca78cb.mp3",
+    "6f/6fa96313186a9828.mp3",
+    "e8/e8921d3c1f4f6a1a.mp3"
+  ],
+  "Zombie_Future_MechCone_Chew": "83/839d67decea5c2b4.mp3",
+  "Zombie_Future_MechCone_Death": [
+    "e6/e68f301a9fa61036.mp3",
+    "3d/3de2a20cbec7156f.mp3"
+  ],
+  "Zombie_Future_MechCone_EatStart": [
+    "5d/5d54dbd7f840b4a9.mp3",
+    "6c/6cecdf4c16c73c54.mp3",
+    "f3/f396857c2d0eecaa.mp3"
+  ],
+  "Zombie_Future_MechCone_FootStep": [
+    "6a/6a32718dc56be1fb.mp3",
+    "95/956b85793746c46c.mp3",
+    "72/72eb7e763827d2a2.mp3"
+  ],
+  "Zombie_Future_MechCone_Hit": [
+    "81/8135c68f3c8eff99.mp3",
+    "78/78b6843d3379684c.mp3",
+    "af/af192b99f4eed644.mp3"
+  ],
+  "Zombie_Future_MechCone_MouthOpen": [
+    "89/89dbb4216cfc2f21.mp3",
+    "a5/a57452cd2925e4e3.mp3"
+  ],
+  "Zombie_Future_Protector_Activate": "84/844b67f866874b49.mp3",
+  "Zombie_Future_Protector_Deactivate": "54/5406b541d8bfb032.mp3",
+  "Zombie_Future_Protector_ArmBack": "41/416fded62394a1fb.mp3",
+  "Zombie_Future_Protector_MouthOpen": "9a/9a0fc18e753e4175.mp3",
+  "Zombie_Future_Protector_MouthClose": "45/45bdd19f9b075ec7.mp3",
+  "Zombie_Future_Protector_Cut": [
+    "e4/e4f0ba29a2e8e622.mp3",
+    "f2/f25b7e13b0b5b3eb.mp3",
+    "ac/ac70e09d5089ea81.mp3",
+    "47/47a0382afe55ff73.mp3",
+    "4d/4da988ef13b93457.mp3",
+    "f0/f047b2f377a0bd62.mp3"
+  ],
+  "Zombie_Future_Protector_Death": "c8/c8e69589f4d1a770.mp3",
+  "Zombie_Future_Protector_WalkLoop": "0e/0e4442ae2db34708.mp3",
+  "Zombie_Future_Protector_ShieldHit": "26/265d30e09a1a2c97.mp3",
+  "Zombie_Future_Protector_ShieldStart": [
+    "ea/ead74712e7d80a0d.mp3",
+    "5f/5f62a503a76311b1.mp3"
+  ],
+  "Zombie_Future_Protector_ShieldLoop": "81/81158ea3199d6bf9.mp3",
+  "Zombie_Future_MechDisco_Activate": "68/682095d4745da053.mp3",
+  "Zombie_Future_MechDisco_Deactivate": "3e/3e8aae5a84917942.mp3",
+  "Zombie_Future_MechDisco_Chew": [
+    "10/107f5594d4142b87.mp3",
+    "50/50ecad65176ab7b9.mp3",
+    "23/2314eda3ed9212fd.mp3",
+    "cc/cc1036f64a8bf060.mp3"
+  ],
+  "Zombie_Future_MechDisco_Death0": "90/907180f26a633759.mp3",
+  "Zombie_Future_MechDisco_Death1": "39/39f6e6ca0dee8c3a.mp3",
+  "Zombie_Future_MechDisco_MouthOpen": "97/976783d1ae86981f.mp3",
+  "Zombie_Future_MechDisco_Pull": "eb/eb2b2c30030d966e.mp3",
+  "Zombie_Future_MechDisco_Step": [
+    "50/5006a7587d408b39.mp3",
+    "ec/ec29a87de89d2e31.mp3",
+    "79/792687b5f6119d05.mp3",
+    "ac/ac906939b52bf2ce.mp3"
+  ],
+  "Zombie_Future_MechDisco_SummonMusic": "af/af3d53884b1154db.mp3",
+  "Zombie_Future_MechDisco_SummonMusicWeak": "14/14ff6ed429409a32.mp3",
+  "Zombie_Future_MechDisco_Summon": "57/579560fcf83dde70.mp3",
+  "Zombie_Future_MechDisco_SummonEnd": [
+    "c1/c1d7abbc93e0e877.mp3",
+    "48/486bfce3ab89cf48.mp3"
+  ],
+  "Zombie_Iceage_Basic_Groan": [
+    "Sounds/Zombies/Iceage/Basic/Groan0.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan1.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan2.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan3.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan4.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan5.mp3",
+    "Sounds/Zombies/Iceage/Basic/Groan6.mp3"
+  ],
+  "Zombie_Iceage_Gargantuar_Smash": "a3/a352c14c8e2c0467.mp3",
+  "Zombie_Birthday_Gargantuar_Blow": "9f/9f5ddc9c5d446dcd.mp3",
+  "Zombie_Birthday_Gargantuar_BlowEnd": "2b/2b71e71ab7be8b27.mp3",
+  "Zombie_Kongfu_Basic_Groan": [
+    "Sounds/Zombies/Kongfu/Basic/Groan0.mp3",
+    "Sounds/Zombies/Kongfu/Basic/Groan1.mp3",
+    "Sounds/Zombies/Kongfu/Basic/Groan2.mp3",
+    "Sounds/Zombies/Kongfu/Basic/Groan3.mp3",
+    "Sounds/Zombies/Kongfu/Basic/Groan4.mp3",
+    "Sounds/Zombies/Kongfu/Basic/Groan5.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_DeathPole": "88/88f4d1031f2c9023.mp3",
+  "Zombie_Kongfu_Bronze_Leap": "3f/3f51c1da8ff29418.mp3",
+  "Zombie_Kongfu_Bronze_Hit": "ef/ef941ca853dbd4a0.mp3",
+  "Zombie_Kongfu_Bronze_Grab": [
+    "85/85afbef93041db0d.mp3",
+    "56/5667952c401594a8.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_Explode": [
+    "e6/e6c6f3742180fd51.mp3",
+    "aa/aa557d3f01fdb913.mp3",
+    "23/238f76da6dba34ca.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_Say": [
+    "28/28df2847e9127db6.mp3",
+    "e0/e0e87fce7996266b.mp3",
+    "70/70d331707dcdbc5d.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_Roar": [
+    "62/6233184a00dd0e09.mp3",
+    "70/7015399f8dbc26b2.mp3",
+    "7d/7de6a2770dd122cf.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_ShakeBig": "9f/9f5d03959bb6da01.mp3",
+  "Zombie_Kongfu_Bronze_ShakeLong": "26/266e3ebb044e56e1.mp3",
+  "Zombie_Kongfu_Bronze_Shake": [
+    "f7/f7b96c2b817066ef.mp3",
+    "9d/9d3e0f9d70fcbd20.mp3",
+    "52/526fd97c1fccaa40.mp3",
+    "35/35b8bf0796c8aaea.mp3",
+    "90/90eaa0d3f4c97648.mp3",
+    "d8/d84ed0591f3d5b5f.mp3",
+    "98/983547967b8ff191.mp3",
+    "0d/0d4e282cdb066d88.mp3",
+    "d2/d2a749e1600bb06c.mp3",
+    "cf/cf355276ccd24012.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_SmashHookBase": "d5/d54dafbed4aab7af.mp3",
+  "Zombie_Kongfu_Bronze_SmashHook": [
+    "e2/e286f1e049d9cbfb.mp3",
+    "04/04f8d1ec2fb42ef2.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_SmashStrong": [
+    "9d/9d3bcd08d376c249.mp3",
+    "00/009e9f9511456aa2.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_HookArrive": [
+    "8c/8ca26e24291cf30a.mp3",
+    "79/79505212d419eeea.mp3",
+    "18/187ee6ab151ed982.mp3",
+    "ae/aef8b3e5ee13bd5a.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_SwingHook": [
+    "13/1304ca3bea8c1362.mp3",
+    "06/06f0826d998b0175.mp3",
+    "8c/8c6e6e3c1ee4ea94.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_SwingStrong": [
+    "45/4508c732661ca055.mp3",
+    "b2/b2bcbb6c73232404.mp3",
+    "36/36a9a07f6791c1d3.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_HookHit": [
+    "fb/fb1481b58f955ea3.mp3",
+    "4b/4b1f3e92a4301930.mp3",
+    "9f/9f3d294f279f4612.mp3"
+  ],
+  "Zombie_Kongfu_Bronze_Untie": [
+    "5b/5bf4806f3a441d51.mp3",
+    "6b/6b78555ef273ee49.mp3"
+  ],
   "Zombie_Kongfu_BossExplode_BombExplode": "5f/ff6a61a1184d45ee.mp3",
-  "Zombie_Lostcity_Basic_Groan0": "Sounds/Zombies/Lostcity/Basic/Groan0.mp3",
-  "Zombie_Lostcity_Basic_Groan1": "Sounds/Zombies/Lostcity/Basic/Groan1.mp3",
-  "Zombie_Lostcity_Basic_Groan2": "Sounds/Zombies/Lostcity/Basic/Groan2.mp3",
-  "Zombie_Lostcity_Basic_Groan3": "Sounds/Zombies/Lostcity/Basic/Groan3.mp3",
-  "Zombie_Lostcity_Basic_Groan4": "Sounds/Zombies/Lostcity/Basic/Groan4.mp3",
-  "Zombie_Lostcity_Basic_Groan5": "Sounds/Zombies/Lostcity/Basic/Groan5.mp3",
-  "Zombie_Lostcity_Basic_Groan6": "Sounds/Zombies/Lostcity/Basic/Groan6.mp3",
-  "Zombie_Lostcity_Basic_Groan7": "Sounds/Zombies/Lostcity/Basic/Groan7.mp3",
-  "Zombie_Lostcity_Basic_Groan8": "Sounds/Zombies/Lostcity/Basic/Groan8.mp3",
-  "Zombie_Lostcity_Basic_Groan9": "Sounds/Zombies/Lostcity/Basic/Groan9.mp3",
-  "Zombie_Lostcity_Basic_Groan10": "Sounds/Zombies/Lostcity/Basic/Groan10.mp3",
-  "Zombie_Lostcity_Basic_Groan11": "Sounds/Zombies/Lostcity/Basic/Groan11.mp3",
-  "Zombie_Lostcity_Basic_Groan12": "Sounds/Zombies/Lostcity/Basic/Groan12.mp3",
-  "Zombie_Lostcity_Basic_Groan13": "Sounds/Zombies/Lostcity/Basic/Groan13.mp3",
-  "Zombie_Lostcity_Basic_Groan14": "Sounds/Zombies/Lostcity/Basic/Groan14.mp3",
-  "Zombie_Modern_Basic_Groan0": "Sounds/Zombies/Modern/Basic/Groan0.mp3",
-  "Zombie_Modern_Basic_Groan1": "Sounds/Zombies/Modern/Basic/Groan1.mp3",
-  "Zombie_Modern_Basic_Groan2": "Sounds/Zombies/Modern/Basic/Groan2.mp3",
-  "Zombie_Modern_Basic_Groan3": "Sounds/Zombies/Modern/Basic/Groan3.mp3",
-  "Zombie_Modern_Basic_Groan4": "Sounds/Zombies/Modern/Basic/Groan4.mp3",
-  "Zombie_Modern_Imp_Groan0": "Sounds/Zombies/Modern/Imp/Groan0.mp3",
-  "Zombie_Modern_Imp_Groan1": "Sounds/Zombies/Modern/Imp/Groan1.mp3",
-  "Zombie_Modern_Imp_Groan2": "Sounds/Zombies/Modern/Imp/Groan2.mp3",
-  "Zombie_Modern_Imp_Groan3": "Sounds/Zombies/Modern/Imp/Groan3.mp3",
-  "Zombie_Modern_Imp_Groan4": "Sounds/Zombies/Modern/Imp/Groan4.mp3",
-  "Zombie_Modern_Imp_Groan5": "Sounds/Zombies/Modern/Imp/Groan5.mp3",
-  "Zombie_Modern_Gargantuar_Groan0": "Sounds/Zombies/Modern/Gargantuar/Groan0.mp3",
-  "Zombie_Modern_Gargantuar_Groan1": "Sounds/Zombies/Modern/Gargantuar/Groan1.mp3",
-  "Zombie_Modern_Gargantuar_Groan2": "Sounds/Zombies/Modern/Gargantuar/Groan2.mp3",
-  "Zombie_Modern_Gargantuar_Groan3": "Sounds/Zombies/Modern/Gargantuar/Groan3.mp3",
-  "Zombie_Pirate_Basic_Groan0": "Sounds/Zombies/Pirate/Basic/Groan0.mp3",
-  "Zombie_Pirate_Basic_Groan1": "Sounds/Zombies/Pirate/Basic/Groan1.mp3",
-  "Zombie_Pirate_Basic_Groan2": "Sounds/Zombies/Pirate/Basic/Groan2.mp3",
-  "Zombie_Pirate_Basic_Groan3": "Sounds/Zombies/Pirate/Basic/Groan3.mp3",
-  "Zombie_Pirate_Basic_Groan4": "Sounds/Zombies/Pirate/Basic/Groan4.mp3",
-  "Zombie_Pirate_Basic_Groan5": "Sounds/Zombies/Pirate/Basic/Groan5.mp3",
-  "Zombie_Pirate_Basic_Groan6": "Sounds/Zombies/Pirate/Basic/Groan6.mp3",
-  "Zombie_Pirate_Basic_Groan7": "Sounds/Zombies/Pirate/Basic/Groan7.mp3",
-  "Zombie_Pirate_Basic_Groan8": "Sounds/Zombies/Pirate/Basic/Groan8.mp3",
-  "Zombie_Pirate_Basic_Groan9": "Sounds/Zombies/Pirate/Basic/Groan9.mp3",
-  "Zombie_Pirate_Basic_Groan10": "Sounds/Zombies/Pirate/Basic/Groan10.mp3",
-  "Zombie_Pirate_Basic_Groan11": "Sounds/Zombies/Pirate/Basic/Groan11.mp3",
-  "Zombie_Pirate_Basic_Groan12": "Sounds/Zombies/Pirate/Basic/Groan12.mp3",
-  "Zombie_Pirate_Basic_Groan13": "Sounds/Zombies/Pirate/Basic/Groan13.mp3",
-  "Zombie_Pirate_Basic_Groan14": "Sounds/Zombies/Pirate/Basic/Groan14.mp3",
+  "Zombie_Kongfu_BossBlade_MetalExplode": "dd/ddb4f0d69b92f84d.mp3",
+  "Zombie_Lostcity_Gargantuar_SwingFlame": "5f/5f55c4a697127d6a.mp3",
+  "Zombie_Lostcity_Basic_Groan": [
+    "Sounds/Zombies/Lostcity/Basic/Groan0.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan1.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan2.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan3.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan4.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan5.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan6.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan7.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan8.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan9.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan10.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan11.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan12.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan13.mp3",
+    "Sounds/Zombies/Lostcity/Basic/Groan14.mp3"
+  ],
+  "Zombie_Modern_Basic_Groan": [
+    "Sounds/Zombies/Modern/Basic/Groan0.mp3",
+    "Sounds/Zombies/Modern/Basic/Groan1.mp3",
+    "Sounds/Zombies/Modern/Basic/Groan2.mp3",
+    "Sounds/Zombies/Modern/Basic/Groan3.mp3",
+    "Sounds/Zombies/Modern/Basic/Groan4.mp3"
+  ],
+  "Zombie_Modern_Allstar_Groan": [
+    "28/28b40a5e52b0ce7e.mp3",
+    "d4/d4824bbe6aa92b0f.mp3",
+    "42/421e360426555785.mp3",
+    "79/79326b7af445000b.mp3",
+    "94/94b2019c0ace28b9.mp3"
+  ],
+  "Zombie_Modern_Allstar_Kick": [
+    "26/2615ca83dda7fd34.mp3",
+    "40/40eb043234f3bf38.mp3",
+    "54/54d684bf2044e1aa.mp3"
+  ],
+  "Zombie_Modern_Allstar_Punch": [
+    "8f/8f12b14454262ad5.mp3",
+    "2b/2b8a0ddb72bc4d1b.mp3",
+    "09/09347badb779dd1f.mp3"
+  ],
+  "Zombie_Modern_Allstar_Step": [
+    "ce/cea198316b202d50.mp3",
+    "ac/ac9a85a54d308958.mp3",
+    "f6/f6351fc11fa34f0e.mp3"
+  ],
+  "Zombie_Modern_Allstar_Whistle": "86/8646360434bde200.mp3",
+  "Zombie_Modern_Imp_Groan": [
+    "Sounds/Zombies/Modern/Imp/Groan0.mp3",
+    "Sounds/Zombies/Modern/Imp/Groan1.mp3",
+    "Sounds/Zombies/Modern/Imp/Groan2.mp3",
+    "Sounds/Zombies/Modern/Imp/Groan3.mp3",
+    "Sounds/Zombies/Modern/Imp/Groan4.mp3",
+    "Sounds/Zombies/Modern/Imp/Groan5.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_Groan": [
+    "Sounds/Zombies/Modern/Gargantuar/Groan0.mp3",
+    "Sounds/Zombies/Modern/Gargantuar/Groan1.mp3",
+    "Sounds/Zombies/Modern/Gargantuar/Groan2.mp3",
+    "Sounds/Zombies/Modern/Gargantuar/Groan3.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_GroanAfterSmash": [
+    "48/481c6773099d0ccb.mp3",
+    "9e/9e3050a5fdf6b4c3.mp3",
+    "1e/1ea931991e715634.mp3",
+    "24/2489ce11b31eaadb.mp3",
+    "5d/5d5adc1a1b02e1b1.mp3",
+    "9d/9d0be22a1610214b.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_GroanPainfully": [
+    "bf/bf749abe998e6b5b.mp3",
+    "18/1801a050f55ae30d.mp3",
+    "e9/e948a3bc3ea64f6b.mp3",
+    "2b/2bd39a6218f679dd.mp3",
+    "c1/c17530cc6a12df48.mp3",
+    "25/25c316ebe1d5659f.mp3",
+    "11/110bb45a47b4ed1e.mp3",
+    "45/45d6e45c755318bf.mp3",
+    "04/04965f5722486d30.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_Step": [
+    "c1/c1ef3624ac9407dd.mp3",
+    "f5/f51203a196adbc03.mp3",
+    "a8/a86a7701ffea1627.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_Swing": [
+    "a1/a18b16038d65c718.mp3",
+    "e2/e2072a622600cb53.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_ImpThrow": [
+    "c1/c1b90862f7aa4b95.mp3",
+    "ed/ed858dd7800bcbcd.mp3",
+    "ca/ca087b4203e08947.mp3",
+    "fe/fefd5112b294cc9f.mp3",
+    "66/662124ab485d0658.mp3",
+    "3a/3af1a77ef37e5341.mp3",
+    "a6/a6fb5cbc550e27ee.mp3",
+    "a1/a11eab1b70235864.mp3",
+    "32/324fe1be24694f98.mp3"
+  ],
+  "Zombie_Modern_Gargantuar_DeathPole": "63/638a35dcf41f878a.mp3",
+  "Zombie_Modern_Gargantuar_DeathFall": "63/637f1c8cb1f850a7.mp3",
+  "Zombie_Modern_Gargantuar_Smash": "85/85afbef93041db0d.mp3",
+  "Zombie_Modern_Zomboni_Blop": "37/377c064e5f362e80.mp3",
+  "Zombie_Modern_Zomboni_Erupt": "bb/bb354ce6080d1b81.mp3",
+  "Zombie_Modern_Zomboni_Explode": "a7/a70bc8b126883d8f.mp3",
+  "Zombie_Modern_Zomboni_Init": "a0/a08e4c95cc78b4b6.mp3",
+  "Zombie_Modern_Zomboni_ExplodeReady": [
+    "9f/9f50835cc36f7071.mp3",
+    "71/71f329f102a508bd.mp3"
+  ],
+  "Zombie_Modern_Zomboni_Break": [
+    "0d/0d47e8657a827fc0.mp3",
+    "f2/f2fb8f76ecca8763.mp3"
+  ],
+  "Zombie_Modern_Zomboni_Smash": [
+    "dd/ddfe285fdeecde55.mp3",
+    "3b/3b62f166bb68608a.mp3",
+    "45/45e4edc3ec25199f.mp3",
+    "4d/4db9ad66db2faa6c.mp3"
+  ],
+  "Zombie_Modern_Bobsled_Destroy": [
+    "da/da993cf3b862626e.mp3",
+    "ef/ef52bc758f0ab676.mp3"
+  ],
+  "Zombie_Holiday_Gargantuar_Step": [
+    "00/00fcc9cc69feeab6.mp3",
+    "6c/6ca9b99a16de7309.mp3",
+    "0d/0d883674bea6ae20.mp3",
+    "b8/b8c21b73b75c5064.mp3"
+  ],
+  "Zombie_Holiday_Gargantuar_Smash": [
+    "93/935ccd4b874a9473.mp3",
+    "d6/d64a3ed000860578.mp3",
+    "86/868fa7b4ef5f146f.mp3"
+  ],
+  "Zombie_Holiday_Gargantuar_DeathFall": [
+    "f6/f6f8b8c02e181c85.mp3",
+    "17/176feb20d8e57581.mp3"
+  ],
+  "Zombie_Holiday_Gargantuar_DeathPole": "c3/c318c151d26093b5.mp3",
+  "Zombie_Summer_Gargantuar_Smash": "39/39656acdefb52af5.mp3",
+  "Zombie_Galactic_SupernovaGargantuar_Smash": "2a/2af56481ccb83fdb.mp3",
+  "Zombie_Galactic_SupernovaGargantuar_Charge": "39/3905e8fe29e4f5ff.mp3",
+  "Zombie_Pirate_Basic_Groan": [
+    "Sounds/Zombies/Pirate/Basic/Groan0.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan1.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan2.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan3.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan4.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan5.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan6.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan7.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan8.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan9.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan10.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan11.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan12.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan13.mp3",
+    "Sounds/Zombies/Pirate/Basic/Groan14.mp3"
+  ],
   "Zombie_Pirate_Seagull_BirdExpl0": "eb/03b41d9a4dd50c4e.mp3",
   "Zombie_Pirate_Seagull_BirdExpl1": "e0/74f6d733f9a3490b.mp3",
   "Zombie_Pirate_Seagull_BirdExpl2": "82/7ac166958a9d365e.mp3",
+  "Zombie_Pirate_Gargantuar_DeathFall": [
+    "c0/c011d8f51a4f1e21.mp3",
+    "ac/ac1e94747f7c0c93.mp3"
+  ],
+  "Zombie_Pirate_Gargantuar_DeathPole": [
+    "ed/ed7c8db2094eab15.mp3",
+    "81/816514fa60c5c1f8.mp3"
+  ],
+  "Zombie_Pirate_Gargantuar_ImpShoot": [
+    "47/47775f8a096b59ed.mp3",
+    "1a/1a2ca96fb7bc808b.mp3"
+  ],
+  "Zombie_Pirate_Gargantuar_Steady": [
+    "b0/b0548687a36ccf08.mp3",
+    "6f/6fc47e3367a50639.mp3"
+  ],
+  "Zombie_Pirate_Gargantuar_Smash": [
+    "28/287829a0b70c8f7f.mp3",
+    "e9/e986c49e442d3da7.mp3",
+    "95/954d8ff0d89019eb.mp3"
+  ],
+  "Zombie_Pirate_Gargantuar_Step": [
+    "9a/9ad879540b41ccbb.mp3",
+    "5b/5b533bbbf8576181.mp3",
+    "b9/b90ef1915445bcbe.mp3",
+    "ae/aea0601b5d8298f8.mp3"
+  ],
   "Beghouled_Floop": "2f/3d911f5b6cf8dca3.mp3",
   "Beghouled_Match": "b1/fad8eefd9cbc8972.mp3",
   "Beghouled_Shuffle": "49/ee38670a76b00c4d.mp3",
-  "Beghouled_Shovel0": "65/9730a9588df33f7a.mp3",
-  "Beghouled_Shovel1": "85/48c15d1165535a5a.mp3",
-  "Beghouled_Shovel2": "b1/e9cf57f93e4ba709.mp3",
-  "Beghouled_Shovel3": "5e/9c9835af4c3d487e.mp3",
+  "Beghouled_Shovel": [
+    "65/9730a9588df33f7a.mp3",
+    "85/48c15d1165535a5a.mp3",
+    "b1/e9cf57f93e4ba709.mp3",
+    "5e/9c9835af4c3d487e.mp3"
+  ],
   "Beghouled_Upgrade": "2b/3d0906cd4e93892f.mp3",
   "Environment_JamTrans_Rap00": "55/24cb1ec144ff1156.mp3",
   "Environment_JamTrans_Rap01": "a6/a51f86011d92902f.mp3",
@@ -492,8 +1065,10 @@
   "Environment_TombRiseMagical0": "bd/a11c6f275633cd2d.mp3",
   "Environment_TombRiseMagical1": "0b/64333d43b3293edd.mp3",
   "Environment_SeaSplash": "Sounds/Game/Environment/SeaSplash.mp3",
-  "Environment_WaterSplash0": "Sounds/Game/Environment/WaterSplash0.mp3",
-  "Environment_WaterSplash1": "Sounds/Game/Environment/WaterSplash1.mp3",
+  "Environment_WaterSplash": [
+    "Sounds/Game/Environment/WaterSplash0.mp3",
+    "Sounds/Game/Environment/WaterSplash1.mp3"
+  ],
   "Environment_Beach_Ambience_LP": "Sounds/Game/Environment/Lawns/Beach/LP.mp3",
   "Environment_Beach_Ambience_Rare0": "Sounds/Game/Environment/Lawns/Beach/Rare0.mp3",
   "Environment_Beach_Ambience_Rare1": "Sounds/Game/Environment/Lawns/Beach/Rare1.mp3",
@@ -532,9 +1107,9 @@
   "Environment_Eighties_Ambience_Switch_Crowd2": "Sounds/Game/Environment/Lawns/Eighties/Switch_Crowd2.mp3",
   "Environment_Eighties_Ambience_Switch_RapScreen0": "Sounds/Game/Environment/Lawns/Eighties/Switch_RapScreen0.mp3",
   "Environment_Eighties_Ambience_Switch_RapScreen1": "Sounds/Game/Environment/Lawns/Eighties/Switch_RapScreen1.mp3",
-  "Environment_FrontYardHalloween_Ambience_Rare0": "Sounds/Game/Environment/Lawns/FrontYardHalloween/Rare0.mp3",
-  "Environment_FrontYardHalloween_Ambience_Rare1": "Sounds/Game/Environment/Lawns/FrontYardHalloween/Rare1.mp3",
-  "Environment_FrontYardHalloween_Ambience_Rare2": "Sounds/Game/Environment/Lawns/FrontYardHalloween/Rare2.mp3",
+  "Environment_FrontYardHalloween_Ambience_Rare0": "ae/aea9d03ca781426f.mp3",
+  "Environment_FrontYardHalloween_Ambience_Rare1": "f0/f042bd1ba639773d.mp3",
+  "Environment_FrontYardHalloween_Ambience_Rare2": "59/59c181cba294a3c2.mp3",
   "Environment_FrontYardXmas_Ambience_LP": "Sounds/Game/Environment/Lawns/FrontYardXmas/LP.mp3",
   "Environment_Future_Ambience_LP": "Sounds/Game/Environment/Lawns/Future/LP.mp3",
   "Environment_Iceage_Ambience_LP": "Sounds/Game/Environment/Lawns/Iceage/LP.mp3",
@@ -586,23 +1161,27 @@
   "PowerUps_FlameStart": "5c/2763e91f4783d313.mp3",
   "PowerUps_FlameLoop": "35/6cebe5673242a31a.mp3",
   "PowerUps_SnowStart": "9d/28a6ab221b72ba88.mp3",
-  "PowerUps_Snow00": "bb/e7f333c108f28c73.mp3",
-  "PowerUps_Snow01": "9b/36e072376f04e2a0.mp3",
-  "PowerUps_Snow02": "68/b9bb81b321940740.mp3",
-  "PowerUps_Snow03": "fc/0b10fd1182d02b94.mp3",
-  "PowerUps_Snow04": "e1/33012294c555e992.mp3",
-  "PowerUps_Snow05": "98/024c651accbd185a.mp3",
-  "PowerUps_Snow06": "a9/6370267b24e0d35d.mp3",
-  "PowerUps_Snow07": "84/f4be9f493934a259.mp3",
-  "PowerUps_Snow08": "d4/75ec653fbd3bda5f.mp3",
-  "PowerUps_Snow09": "53/3ef12d7650897938.mp3",
-  "PowerUps_Snow10": "0a/2936445384291e57.mp3",
-  "PowerUps_Snow11": "4a/e275a6d1a37d490d.mp3",
-  "PowerUps_Snow12": "89/5fff7f23f2bdf449.mp3",
-  "PowerUps_Snow13": "8c/f79be6f68097e74a.mp3",
-  "PowerUps_Toss0": "d9/73b1a81b6c014283.mp3",
-  "PowerUps_Toss1": "54/4d9c5ee14639a40f.mp3",
-  "PowerUps_Toss2": "88/7a1a28ef527a2898.mp3",
+  "PowerUps_Snow": [
+    "bb/e7f333c108f28c73.mp3",
+    "9b/36e072376f04e2a0.mp3",
+    "68/b9bb81b321940740.mp3",
+    "fc/0b10fd1182d02b94.mp3",
+    "e1/33012294c555e992.mp3",
+    "98/024c651accbd185a.mp3",
+    "a9/6370267b24e0d35d.mp3",
+    "84/f4be9f493934a259.mp3",
+    "d4/75ec653fbd3bda5f.mp3",
+    "53/3ef12d7650897938.mp3",
+    "0a/2936445384291e57.mp3",
+    "4a/e275a6d1a37d490d.mp3",
+    "89/5fff7f23f2bdf449.mp3",
+    "8c/f79be6f68097e74a.mp3"
+  ],
+  "PowerUps_Toss": [
+    "d9/73b1a81b6c014283.mp3",
+    "54/4d9c5ee14639a40f.mp3",
+    "88/7a1a28ef527a2898.mp3"
+  ],
   "Game_2x_On": "Sounds/Game/UI/2x_On.mp3",
   "Game_2x_Off": "Sounds/Game/UI/2x_Off.mp3",
   "Game_SniperLocate": "31/24349e08770cb2da.mp3",
@@ -622,9 +1201,11 @@
   "Game_MissionWarn": "Sounds/Game/UI/MissionWarn.mp3",
   "Game_MowerSpawn": "06/1345caac4fced48f.mp3",
   "Game_LevelExit": "Sounds/Game/UI/LevelExit.mp3",
-  "Game_PlantThrow0": "Sounds/Game/UI/PlantThrow0.mp3",
-  "Game_PlantThrow1": "Sounds/Game/UI/PlantThrow1.mp3",
-  "Game_PlantThrow2": "Sounds/Game/UI/PlantThrow2.mp3",
+  "Game_PlantThrow": [
+    "Sounds/Game/UI/PlantThrow0.mp3",
+    "Sounds/Game/UI/PlantThrow1.mp3",
+    "Sounds/Game/UI/PlantThrow2.mp3"
+  ],
   "Game_PlantFoodStart": "Sounds/Game/UI/PlantFoodStart.mp3",
   "Game_PlantFoodAdd": "7b/3403d47e2f088f02.mp3",
   "Game_PlantFoodActivate": "67/5c9dafc60c2a1108.mp3",
@@ -633,12 +1214,16 @@
   "Game_Strengthen": "Sounds/Game/UI/Strengthen.mp3",
   "Game_PlantEvolve": "Sounds/Game/UI/PlantEvolve.mp3",
   "Game_PlantUnevolve": "Sounds/Game/UI/PlantUnevolve.mp3",
-  "Game_Plant_0": "Sounds/Game/UI/Plant_0.mp3",
-  "Game_Plant_1": "Sounds/Game/UI/Plant_1.mp3",
+  "Game_Plant": [
+    "Sounds/Game/UI/Plant_0.mp3",
+    "Sounds/Game/UI/Plant_1.mp3"
+  ],
   "Game_Plant_Water": "Sounds/Game/UI/Plant_Water.mp3",
-  "Game_Shovel_Dig_0": "Sounds/Game/UI/Shovel_Dig_0.mp3",
-  "Game_Shovel_Dig_1": "Sounds/Game/UI/Shovel_Dig_1.mp3",
-  "Game_Shovel_Dig_2": "Sounds/Game/UI/Shovel_Dig_2.mp3",
+  "Game_Shovel_Dig": [
+    "Sounds/Game/UI/Shovel_Dig_0.mp3",
+    "Sounds/Game/UI/Shovel_Dig_1.mp3",
+    "Sounds/Game/UI/Shovel_Dig_2.mp3"
+  ],
   "Game_Shovel_Dig_Water": "Sounds/Game/UI/Shovel_Dig_Water.mp3",
   "Game_ShovelActivate": "Sounds/Game/UI/ShovelActivate.mp3",
   "Game_Pause": "Sounds/Game/UI/Pause.mp3",
@@ -646,11 +1231,14 @@
   "Game_SandStormWarn": "Sounds/Game/UI/SandStormWarn.mp3",
   "Game_ReadySet": "Sounds/Game/UI/ReadySet.mp3",
   "Game_HugeWave": "Sounds/Game/UI/HugeWave.mp3",
+  "Game_StarObject_Mold": "c2/c264e61b14e0fdf1.mp3",
   "Game_FinalWave": "Sounds/Game/UI/FinalWave.mp3",
   "Game_ZombieAlert": "Sounds/Game/UI/ZombieAlert.mp3",
   "Game_ZombossHPRiseStart": "Sounds/Game/UI/ZombossHPRiseStart.mp3",
-  "Game_ZombossHPRising0": "Sounds/Game/UI/ZombossHPRising0.mp3",
-  "Game_ZombossHPRising1": "Sounds/Game/UI/ZombossHPRising1.mp3",
+  "Game_ZombossHPRising": [
+    "Sounds/Game/UI/ZombossHPRising0.mp3",
+    "Sounds/Game/UI/ZombossHPRising1.mp3"
+  ],
   "Game_TimeTunnel_Run": "9a/da6b44214c8e29a6.mp3",
   "Game_TimeTunnel_Music": "47/3c04d8ce28ccce2c.mp3",
   "ZenGarden_Boost": "36/7f273872376d9e5d.mp3",

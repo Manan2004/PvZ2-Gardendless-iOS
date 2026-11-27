@@ -228,7 +228,7 @@ window.electronAPI = {
   listMusicPacks: () => Promise.resolve([]),
   getMusicPackAudioUrl: () => '',
   onMusicPackChanged: (callback) => () => {},
-  getVersionInfo: () => Promise.resolve({ Version: "v0.16.26", InsideVersion: "0.16.26" }),
+  getVersionInfo: () => Promise.resolve({ Version: "v0.16.31", InsideVersion: "0.16.31" }),
   getMassageSync: () => '',
   getAllResolutionsSync: () => [],
 };

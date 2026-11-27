@@ -101,28 +101,44 @@ async function main() {
     console.warn('  Warning: Could not fetch gameinfo.json, defaulting to:', version);
   }
 
-  let releaseHash = process.argv[2];
-  if (!releaseHash) {
-    const homeHtml = await fetchText('https://play.pvzge.com/');
-    const baseMatch = homeHtml.match(/<base\s+href="\/releases\/([a-f0-9]+)\/?"/i);
-    if (!baseMatch) {
-      throw new Error('Could not parse release hash from play.pvzge.com');
-    }
-    releaseHash = baseMatch[1];
-  }
-  console.log(`  Target Release Hash: ${releaseHash}`);
-  const baseUrl = `https://play.pvzge.com/releases/${releaseHash}/`;
-  console.log(`  Base URL: ${baseUrl}\n`);
+  const localArgIdx = process.argv.indexOf('--local');
+  const localSrcDir = localArgIdx !== -1 ? path.resolve(process.argv[localArgIdx + 1]) : null;
 
-  // 2. Fetch upstream configs
-  console.log('[2/8] Fetching upstream configuration files...');
-  const [rawResourcesConfig, rawAudioManifest, rawMainConfig, rawInternalConfig, rawIndexJs] = await Promise.all([
-    fetchText(`${baseUrl}assets/resources/config.json`),
-    fetchText(`${baseUrl}audio/manifest.json`),
-    fetchText(`${baseUrl}assets/main/config.json`),
-    fetchText(`${baseUrl}assets/internal/config.json`),
-    fetchText(`${baseUrl}assets/main/index.js`)
-  ]);
+  let baseUrl = '';
+  let rawResourcesConfig, rawAudioManifest, rawMainConfig, rawInternalConfig, rawIndexJs;
+
+  if (localSrcDir) {
+    console.log(`  Source Mode: Local directory (${localSrcDir})\n`);
+    console.log('[2/8] Reading local upstream configuration files...');
+    rawResourcesConfig = fs.readFileSync(path.join(localSrcDir, 'assets/resources/config.json'), 'utf8');
+    rawAudioManifest = fs.readFileSync(path.join(localSrcDir, 'audio/manifest.json'), 'utf8');
+    rawMainConfig = fs.readFileSync(path.join(localSrcDir, 'assets/main/config.json'), 'utf8');
+    rawInternalConfig = fs.readFileSync(path.join(localSrcDir, 'assets/internal/config.json'), 'utf8');
+    rawIndexJs = fs.readFileSync(path.join(localSrcDir, 'assets/main/index.js'), 'utf8');
+  } else {
+    let releaseHash = process.argv[2];
+    if (!releaseHash) {
+      const homeHtml = await fetchText('https://play.pvzge.com/');
+      const baseMatch = homeHtml.match(/<base\s+href="\/releases\/([a-f0-9]+)\/?"/i);
+      if (!baseMatch) {
+        throw new Error('Could not parse release hash from play.pvzge.com');
+      }
+      releaseHash = baseMatch[1];
+    }
+    console.log(`  Target Release Hash: ${releaseHash}`);
+    baseUrl = `https://play.pvzge.com/releases/${releaseHash}/`;
+    console.log(`  Base URL: ${baseUrl}\n`);
+
+    // 2. Fetch upstream configs
+    console.log('[2/8] Fetching upstream configuration files...');
+    [rawResourcesConfig, rawAudioManifest, rawMainConfig, rawInternalConfig, rawIndexJs] = await Promise.all([
+      fetchText(`${baseUrl}assets/resources/config.json`),
+      fetchText(`${baseUrl}audio/manifest.json`),
+      fetchText(`${baseUrl}assets/main/config.json`),
+      fetchText(`${baseUrl}assets/internal/config.json`),
+      fetchText(`${baseUrl}assets/main/index.js`)
+    ]);
+  }
 
   const upResourcesConfig = JSON.parse(rawResourcesConfig);
   const upAudioManifest = JSON.parse(rawAudioManifest);
@@ -169,10 +185,13 @@ async function main() {
   } catch (_) {}
 
   const missingAudio = [];
-  for (const [k, relPath] of Object.entries(upAudioManifest)) {
-    const audioPath = path.join(localAudio, relPath);
-    if (!fs.existsSync(audioPath) || !localAudioManifest[k]) {
-      missingAudio.push(relPath);
+  for (const [k, val] of Object.entries(upAudioManifest)) {
+    const list = Array.isArray(val) ? val : [val];
+    for (const relPath of list) {
+      const audioPath = path.join(localAudio, relPath);
+      if (!fs.existsSync(audioPath) || !localAudioManifest[k]) {
+        missingAudio.push(relPath);
+      }
     }
   }
 
@@ -180,36 +199,76 @@ async function main() {
   console.log(`  Missing standalone files: ${missingStandalone.length}`);
   console.log(`  Missing / updated audio files: ${missingAudio.length}\n`);
 
-  // 4. Download missing assets concurrently
-  console.log('[4/8] Downloading missing assets from upstream CDN...');
+  async function fetchOrCopy(relPath) {
+    const dest = path.join(WWW_DIR, relPath);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    if (localSrcDir) {
+      const src = path.join(localSrcDir, relPath);
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+      } else {
+        console.warn(`\n  [Warn] Missing in local source: ${relPath}`);
+      }
+    } else {
+      await downloadBinary(baseUrl + relPath, dest);
+    }
+  }
+
+  // 4. Download or copy missing assets concurrently
+  console.log(localSrcDir ? '[4/8] Copying missing/updated assets from local source...' : '[4/8] Downloading missing assets from upstream CDN...');
   if (missingPacks.length > 0) {
-    process.stdout.write(`  Downloading ${missingPacks.length} packs: `);
+    process.stdout.write(`  Syncing ${missingPacks.length} packs: `);
     await runPool(missingPacks, 6, async (p) => {
-      const rel = `assets/resources/import/${p.slice(0, 2)}/${p}.json`;
-      await downloadBinary(baseUrl + rel, path.join(WWW_DIR, rel));
+      await fetchOrCopy(`assets/resources/import/${p.slice(0, 2)}/${p}.json`);
       process.stdout.write('.');
     });
     console.log(' Done.');
   }
 
   if (missingStandalone.length > 0) {
-    process.stdout.write(`  Downloading ${missingStandalone.length} standalone files: `);
+    process.stdout.write(`  Syncing ${missingStandalone.length} standalone files: `);
     await runPool(missingStandalone, 6, async (s) => {
-      const rel = `assets/resources/import/${s.decoded.slice(0, 2)}/${s.decoded}.json`;
-      await downloadBinary(baseUrl + rel, path.join(WWW_DIR, rel));
+      const jsonRel = `assets/resources/import/${s.decoded.slice(0, 2)}/${s.decoded}.json`;
+      const cconbRel = `assets/resources/import/${s.decoded.slice(0, 2)}/${s.decoded}.cconb`;
+      if (localSrcDir && fs.existsSync(path.join(localSrcDir, cconbRel))) {
+        await fetchOrCopy(cconbRel);
+      } else {
+        await fetchOrCopy(jsonRel);
+      }
       process.stdout.write('.');
     });
     console.log(' Done.');
   }
 
   if (missingAudio.length > 0) {
-    process.stdout.write(`  Downloading ${missingAudio.length} audio clips: `);
+    process.stdout.write(`  Syncing ${missingAudio.length} audio clips: `);
     await runPool(missingAudio, 6, async (a) => {
-      const rel = `audio/${a}`;
-      await downloadBinary(baseUrl + rel, path.join(WWW_DIR, rel));
+      await fetchOrCopy(`audio/${a}`);
       process.stdout.write('.');
     });
     console.log(' Done.');
+  }
+
+  if (localSrcDir && fs.existsSync(path.join(localSrcDir, 'assets/resources/native'))) {
+    let copiedNative = 0;
+    function syncNative(dir) {
+      for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+        const srcPath = path.join(dir, ent.name);
+        if (ent.isDirectory()) {
+          syncNative(srcPath);
+        } else {
+          const rel = path.relative(localSrcDir, srcPath);
+          const destPath = path.join(WWW_DIR, rel);
+          if (!fs.existsSync(destPath)) {
+            fs.mkdirSync(path.dirname(destPath), { recursive: true });
+            fs.copyFileSync(srcPath, destPath);
+            copiedNative++;
+          }
+        }
+      }
+    }
+    syncNative(path.join(localSrcDir, 'assets/resources/native'));
+    console.log(`  Copied ${copiedNative} new native assets.`);
   }
 
   // Save new configs
