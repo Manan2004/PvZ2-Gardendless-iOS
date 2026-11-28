@@ -22,11 +22,11 @@
       "versions": [
         {
           "version": "0.16.31",
-          "buildVersion": "1631",
+          "buildVersion": "01631",
           "date": "2026-11-27",
           "size": 1227083289,
           "downloadURL": "https://github.com/Manan2004/PvZ2-Gardendless-iOS/releases/download/v0.16.31/PvZ2_Gardendless.ipa",
-          "localizedDescription": "• Synchronized with PC version 0.16.31.\n• Complete touch controls, 120 FPS ProMotion, Auto-Collect, and Auto Fast-Forward.\n• Stability & crash protections for all plants and zombies.",
+          "localizedDescription": "### What's New in v0.16.31 (iOS Port)\n- **Upstream v0.16.31 Parity**:\n  - Added **Headbutter Lettuce** (plant, properties, animations, audio, and textures).\n  - Optimized animations for the Peashooter series and reverted low-frequency calculations.\n  - Added ~70 new levels (LOD / Piñata Party & seasonal levels).\n  - Updated GitHub Level window rating buttons (local only) and server domain fix.\n- *",
           "minOSVersion": "15.0"
         },
         {
